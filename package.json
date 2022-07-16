@@ -28,7 +28,6 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "angularfire2": "^5.4.2",
     "firebase": "^7.24.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
