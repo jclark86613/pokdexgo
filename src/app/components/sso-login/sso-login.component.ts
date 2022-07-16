@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
-// import { AuthService } from 'src/app/services/auth/auth.service';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-sso-login',
@@ -12,14 +12,11 @@ export class SsoLoginComponent implements OnInit {
   public buttonGroup = [{
     name: 'Google',
     icon: faGoogle,
-    // click: this.authService.loginWithGoogle()
-  },
-  {
-    name: 'Facebook',
-    icon: faFacebook,
-    // click: this.authService.loginWithFacebook()
+    action: () => {
+      this.authService.login('google');
+    }
   }]
-  // constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }

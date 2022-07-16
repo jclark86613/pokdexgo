@@ -19,11 +19,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideFirestore,getFirestore } from '@angular/fire/firestore';
-import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import { AngularFireModule } from '@angular/fire/compat';
 
 
 @NgModule({
@@ -48,10 +46,8 @@ import { provideFunctions,getFunctions } from '@angular/fire/functions';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions())
+    AngularFireModule.initializeApp(environment.firebase),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]

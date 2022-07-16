@@ -1,5 +1,5 @@
 <mat-button-toggle-group #group="matButtonToggleGroup">
-    <mat-button-toggle *ngFor="let button of buttonGroup" aria-label="Text align left">
+    <mat-button-toggle *ngFor="let button of buttonGroup" aria-label="Text align left" (click)="button.action()">
          <fa-icon [icon]="button.icon" [size]="'lg'"></fa-icon>
     </mat-button-toggle>
 </mat-button-toggle-group>

@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class IsAuthenticatedGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private angularFireAuth: AngularFireAuth) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      this.router.navigateByUrl('/login');
-      return false;
+  canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Promise<boolean>  {
+    return new Promise((resolve) => {
+      this.angularFireAuth.onAuthStateChanged((user) => {
+        if (user) {
+          resolve(true);
+        } else {
+          this.router.navigate(['/login']);
+          resolve(false);
+        }
+      });
+    });
   }
 
 }
