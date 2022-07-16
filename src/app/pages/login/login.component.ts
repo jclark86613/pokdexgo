@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { PagesService } from '../pages.service';
 
@@ -11,9 +11,9 @@ import { PagesService } from '../pages.service';
 })
 export class LoginComponent extends BasePageComponent {
   protected _pageTitle: string = 'Login - Pokemon go pokedex checklist';
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
-  constructor(protected pagesService: PagesService, private fb: FormBuilder) {
+  constructor(protected pagesService: PagesService, private fb: UntypedFormBuilder) {
     super(pagesService);
     this.form = this.fb.group({
       email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
