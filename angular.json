@@ -109,6 +109,16 @@
               "devServerTarget": "pokdexgo:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "pokdexgo:build:production",
+            "firebaseProject": "pokemon-go-pokedex",
+            "firebaseHostingSite": "pokemon-go-pokedex"
+          }
         }
       }
     }

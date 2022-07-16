@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "pokemon-go-pokedex": {
+      "hosting": {
+        "pokdexgo": [
+          "pokemon-go-pokedex"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "pokemon-go-pokedex"
+  }
+}
