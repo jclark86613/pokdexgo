@@ -22,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { AngularFireModule } from '@angular/fire/compat';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth())
   ],
