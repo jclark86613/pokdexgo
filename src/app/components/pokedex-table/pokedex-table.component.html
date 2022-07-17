@@ -1,4 +1,4 @@
-<mat-table *ngIf="!loading" [dataSource]="table" class="mat-elevation-z8" style="margin: 4rem">
+<table mat-table *ngIf="!loading" [dataSource]="table">
 
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef></th>
@@ -71,4 +71,4 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</mat-table>
+</table>
