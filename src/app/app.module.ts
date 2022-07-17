@@ -26,6 +26,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { RegisterComponent } from './pages/register/register.component';
+import { PokedexButtonComponent } from './components/pokedex-button/pokedex-button.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RegisterComponent } from './pages/register/register.component';
     SsoLoginComponent,
     NavbarComponent,
     PokedexTableComponent,
-    RegisterComponent
+    RegisterComponent,
+    PokedexButtonComponent
   ],
   imports: [
     BrowserModule,

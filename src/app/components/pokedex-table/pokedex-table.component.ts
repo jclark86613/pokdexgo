@@ -8,7 +8,9 @@ import { Pokedex, Pokemon } from 'src/app/services/pokemon-data/pokemon-data.typ
   styleUrls: ['./pokedex-table.component.scss']
 })
 export class PokedexTableComponent implements OnInit {
-  public table: Pokemon[];
+  public pokedex: Pokemon[];
+  public userPokedex = {};
+
   public loading: boolean = true;
   public displayedColumns: string[] = ['id', 'name', 'standard', 'shiny', 'perfect', 'threestar', 'shadow', 'purified'];
 
@@ -16,9 +18,19 @@ export class PokedexTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.pokemonDataService.pokedex.subscribe((pokedex: Pokedex) => {
-      this.table = Object.values(pokedex);
+      this.pokedex = Object.values(pokedex);
       this.loading = false;
     });
+  }
+
+  public updateEntry(id:string, value: string) {
+    if (!this.userPokedex[id]) {
+      this.userPokedex[id] = {
+        [value] : true
+      };
+    } else {
+      this.userPokedex[id][value] = !this.userPokedex[id][value];
+    }
   }
 
 }
