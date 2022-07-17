@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column" fxLayoutAlign="center center">
     <mat-card class="login-card">
-        <mat-card-title>Login</mat-card-title>
+        <mat-card-title>Register</mat-card-title>
         <mat-card-content>
             <form [formGroup]="form" fxLayout="column">
                 <mat-form-field appearance="legacy">
@@ -12,16 +12,18 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" placeholder="password" formControlName="password">
-                    <mat-error>Password is required</mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                    <mat-label>Confirm Password</mat-label>
+                    <input matInput type="password" placeholder="password" formControlName="confPassword">
                 </mat-form-field>
                 <div class="buttons" fxLayout="row" fxLayoutGap="8px">
-                    <button fxFlex="50" mat-raised-button color="primary" routerLink="/register">REGISTER</button>
-                    <button fxFlex="50" mat-raised-button color="accent" (click)="login(form.value)">LOGIN</button>
+                    <button mat-raised-button color="primary" (click)="register(form.value)">REGISTER</button>
                 </div>
             </form>
         </mat-card-content>
         <div class="footer">
-            <p>or, sign in with</p>
+            <p>or, register with</p>
             <app-sso-login></app-sso-login>
         </div>
     </mat-card>

@@ -1,6 +1,6 @@
 <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
-    <span>Pokedex Go</span>
-    <button mat-icon-button (click)="authService.logout()" aria-label="logout">
-        <mat-icon>logout</mat-icon>
-      </button>
+  <span>Pokedex Go</span>
+  <button mat-icon-button *ngIf="authService.auth" (click)="authService.logout()" aria-label="logout">
+    <mat-icon>logout</mat-icon>
+  </button>
 </mat-toolbar>

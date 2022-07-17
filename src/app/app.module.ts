@@ -25,6 +25,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { MatButtonModule } from '@angular/material/button';
 import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.component';
 import { MatTableModule } from '@angular/material/table';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatTableModule } from '@angular/material/table';
     BasePageComponent,
     SsoLoginComponent,
     NavbarComponent,
-    PokedexTableComponent
+    PokedexTableComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

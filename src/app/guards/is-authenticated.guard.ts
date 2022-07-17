@@ -12,6 +12,7 @@ export class IsAuthenticatedGuard implements CanActivate {
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Promise<boolean>  {
     return new Promise((resolve) => {
       this.angularFireAuth.onAuthStateChanged((user) => {
+        console.log({auth: !!user})
         if (user) {
           resolve(true);
         } else {
