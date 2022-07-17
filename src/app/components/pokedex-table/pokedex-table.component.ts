@@ -14,7 +14,6 @@ export class PokedexTableComponent implements OnInit {
   constructor(private pokemonDataService: PokemonDataService) {
     pokemonDataService.getCheckList().then(data => {
       this.table = data;
-      console.log({data})
       this.loading = false;
     });
   }

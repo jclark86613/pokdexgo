@@ -31,7 +31,6 @@ export class LoginComponent extends BasePageComponent implements OnInit {
   }
 
   public login(form: Login): void {
-    console.log(form);
     if(this.form.valid) {
       this.authService.login('email', form);
     }

@@ -11,7 +11,6 @@ export class AuthService {
 
   constructor(private angularFireAuth: AngularFireAuth, private router: Router) {
     this.angularFireAuth.authState.subscribe((user) => {
-      console.log(!!user)
       this.auth = !!user;
       if (!user) {
         this.router.navigate(['/login']);
