@@ -8,6 +8,7 @@ import { Pokedex } from './pokemon-data.types';
 })
 export class PokemonDataService {
   private POGOAPI: string = 'https://pogoapi.net/api/v1';
+  private POKIAPI: string = 'https://pokeapi.co/api/v2';
   private static = {
     pokedex: 'static/pokedex'
   };
@@ -35,16 +36,16 @@ export class PokemonDataService {
       fetch(`${this.POGOAPI}/shiny_pokemon.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/shadow_pokemon.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/mega_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POGOAPI}/alolan_pokemon.json`).then(resp => resp.json())
+      fetch(`${this.POGOAPI}/alolan_pokemon.json`).then(resp => resp.json()),
+      fetch(`${this.POKIAPI}/pokemon?limit=1000`).then(resp => resp.json()),
     ]).then((response) => {
       return this.generatePokedex(response);
     })
   }
-
   private generatePokedex(data) {
     let [allPokemon] = data;
-    const [,releases, shinies, rockets] = data;
-
+    const [,releases, shinies, rockets,,POKEAPI] = data;
+    console.log(POKEAPI)
     for (let id in allPokemon) {
       const poke = allPokemon[id];
       const released = !!releases[poke.id];

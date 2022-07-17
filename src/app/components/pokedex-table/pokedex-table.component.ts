@@ -11,25 +11,32 @@ export class PokedexTableComponent implements OnInit {
   public pokedex: Pokemon[];
   public userPokedex = {};
 
+  private emptyPokemon = {
+    normal: false,
+    shiny: false,
+    perfect: false,
+    threestar: false,
+    shadow: false,
+    purified: false,
+  }
+
   public loading: boolean = true;
-  public displayedColumns: string[] = ['id', 'name', 'standard', 'shiny', 'perfect', 'threestar', 'shadow', 'purified'];
+  public displayedColumns: string[] = ['id', 'image','name', 'standard', 'shiny', 'perfect', 'threestar', 'shadow', 'purified'];
 
   constructor(private pokemonDataService: PokemonDataService) {}
 
   ngOnInit(): void {
     this.pokemonDataService.pokedex.subscribe((pokedex: Pokedex) => {
       this.pokedex = Object.values(pokedex);
+      this.userPokedex = JSON.parse(JSON.stringify(Array(this.pokedex.length).fill(this.emptyPokemon)));
       this.loading = false;
     });
   }
 
   public updateEntry(id:string, value: string) {
-    if (!this.userPokedex[id]) {
-      this.userPokedex[id] = {
-        [value] : true
-      };
-    } else {
-      this.userPokedex[id][value] = !this.userPokedex[id][value];
+    const pokemon = this.userPokedex[id];
+    if (pokemon) {
+      pokemon[value] = !pokemon[value];
     }
   }
 

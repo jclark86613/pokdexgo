@@ -35,3 +35,19 @@ Registration/login:
 
 Arcitecture:
 - Move "Generate Pokdex" function to a firebase function. Update on a schedule.
+- Localstorage all documents required to run application
+  - Pokedex
+  - User Pokedex
+  - Regions (to be implemented)
+
+Todo:
+- Filtering:
+  - by searchable name
+  - by region
+  - by complete/incomplete
+- Sorting:
+  - by name
+  - by id
+- Pagination:
+  - Infinite scroll
+  - reset pages on filter/sort changes

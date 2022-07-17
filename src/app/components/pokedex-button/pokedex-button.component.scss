@@ -34,3 +34,11 @@ button {
 .trans {
     opacity: 0.6;
 }
+
+::ng-deep .mat-button-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
