@@ -1,0 +1,74 @@
+<mat-table *ngIf="!loading" [dataSource]="table" class="mat-elevation-z8" style="margin: 4rem">
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Pokemon</th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="standard">
+    <th mat-header-cell *matHeaderCellDef>Standard</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.normal" aria-label="standard">
+        standard
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="shiny">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.shiny" aria-label="shiny">
+        shiny
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="perfect">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.perfect" aria-label="perfect">
+        perfect
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="threestar">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.threestar" aria-label="threestar">
+        threestar
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="shadow">
+    <th mat-header-cell *matHeaderCellDef>Rocket</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.rocket" aria-label="threestar">
+        shadow
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="purified">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-raised-button [disabled]="!element.stdForms.rocket" aria-label="threestar">
+        purified
+        <mat-icon>close</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>

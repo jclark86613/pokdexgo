@@ -22,8 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire/compat';
-import {MatButtonModule} from '@angular/material/button';
-
+import { MatButtonModule } from '@angular/material/button';
+import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatButtonModule} from '@angular/material/button';
     PokedexComponent,
     BasePageComponent,
     SsoLoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    PokedexTableComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatTableModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth())
   ],
