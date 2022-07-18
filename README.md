@@ -40,14 +40,17 @@ Arcitecture:
   - User Pokedex
   - Regions (to be implemented)
 
-Todo:
-- Filtering:
-  - by searchable name
-  - by region
-  - by complete/incomplete
-- Sorting:
-  - by name
-  - by id
-- Pagination:
-  - Infinite scroll
-  - reset pages on filter/sort changes
+Performance:
+- Unrender table rows that are out of view
+
+## Todo
+Filtering:
+- by searchable name
+- by region
+- by complete/incomplete
+Sorting:
+- by name
+- by id
+Pagination:
+- Infinite scroll
+- reset pages on filter/sort changes
