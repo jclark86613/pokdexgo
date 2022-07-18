@@ -1,5 +1,5 @@
 export interface Pokedex {
-    [key: string]: Pokemon;
+    [key: number]: Pokemon;
 }
 
 export interface Pokemon {
@@ -14,4 +14,16 @@ export interface StdForms {
     perfect: boolean;
     threestar: boolean;
     rocket: boolean;
+}
+export interface UserPokedex {
+    [key: string]: UserPokemon;
+}
+
+export interface UserPokemon {
+    normal: boolean;
+    shiny: boolean;
+    perfect: boolean;
+    threestar: boolean;
+    shadow: boolean;
+    purified: boolean;
 }

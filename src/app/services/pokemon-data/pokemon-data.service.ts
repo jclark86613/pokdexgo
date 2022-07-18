@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Pokedex } from './pokemon-data.types';
+import { Pokedex, UserPokedex } from './pokemon-data.types';
+import { AuthService } from '../auth/auth.service';
+import { User } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,16 @@ export class PokemonDataService {
     pokedex: 'static/pokedex'
   };
 
-  private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(this.static.pokedex);
 
-  // public get pokedex(): Observable<>
-  constructor(private afs: AngularFirestore) {
-    // this.createPokedex();
+
+  private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(this.static.pokedex);
+  private userPokedexDoc: AngularFirestoreDocument<UserPokedex>;
+
+  constructor(private afs: AngularFirestore, private authService: AuthService) {
+    this.createPokedex();
+    this.authService.user.subscribe((user: User) => {
+      this.userPokedexDoc = this.afs.doc<UserPokedex>(`pokedexs/${user.uid}`);
+    })
   }
 
   public get pokedex(): Observable<Pokedex> {
@@ -25,8 +32,23 @@ export class PokemonDataService {
   }
 
   public set latestPokedex(pokedex: Pokedex) {
-    console.log(pokedex)
     this.pokedexDoc.update(pokedex);
+  }
+
+  public get userPokedex(): Observable<UserPokedex> {
+    return this.userPokedexDoc.valueChanges();
+  }
+
+  public set latestUserPokedex(pokedex: UserPokedex) {
+    this.userPokedexDoc.update(pokedex);
+  }
+
+  public setUserPokedex(pokedex: UserPokedex): void {
+    this.userPokedexDoc.update(pokedex);
+  }
+
+  public createNewUserPokedex(pokedex: UserPokedex): void {
+    this.userPokedexDoc.set(pokedex);
   }
 
   public createPokedex(): Promise<any> {
@@ -34,18 +56,15 @@ export class PokemonDataService {
       fetch(`${this.POGOAPI}/pokemon_names.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/released_pokemon.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/shiny_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POGOAPI}/shadow_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POGOAPI}/mega_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POGOAPI}/alolan_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POKIAPI}/pokemon?limit=1000`).then(resp => resp.json()),
+      fetch(`${this.POGOAPI}/shadow_pokemon.json`).then(resp => resp.json())
     ]).then((response) => {
       return this.generatePokedex(response);
     })
   }
+
   private generatePokedex(data) {
     let [allPokemon] = data;
-    const [,releases, shinies, rockets,,POKEAPI] = data;
-    console.log(POKEAPI)
+    const [,releases, shinies, rockets] = data;
     for (let id in allPokemon) {
       const poke = allPokemon[id];
       const released = !!releases[poke.id];
@@ -55,6 +74,7 @@ export class PokemonDataService {
       poke.stdForms = {
         normal: released,
         shiny: shiny,
+        lucky: released,
         perfect: released,
         threestar: released,
         rocket: rocket
@@ -63,4 +83,5 @@ export class PokemonDataService {
     this.latestPokedex = allPokemon;
     return Object.values(allPokemon);
   }
+
 }

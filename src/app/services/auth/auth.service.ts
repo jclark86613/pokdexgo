@@ -2,16 +2,33 @@ import { Injectable } from '@angular/core';
 import { GoogleAuthProvider, User, UserCredential } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public auth: boolean = false;
+
+  // is session authenticated
+  private _auth: boolean = false;
+  public get isAuth(): boolean {
+    return this._auth;
+  }
+  private set isAuth(auth: boolean) {
+    this._auth = auth;
+  }
+
+  // firebase user obejct
+  private _authUser: BehaviorSubject<User> = new BehaviorSubject(null);
+  public get user(): BehaviorSubject<User> {
+    return this._authUser;
+  }
+
 
   constructor(private angularFireAuth: AngularFireAuth, private router: Router) {
-    this.angularFireAuth.authState.subscribe((user) => {
-      this.auth = !!user;
+    this.angularFireAuth.onAuthStateChanged((user: User) => {
+      this._authUser.next(user);
+      this.isAuth = !!user;
       if (!user) {
         this.router.navigate(['/login']);
       } else {

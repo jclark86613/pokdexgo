@@ -1,7 +1,20 @@
-table {
-    .mat-row {
-        .mat-cell {
-            padding-right: 0.5rem;
+.container {
+    overflow-y: scroll;
+    height: 100%;
+    width: fit-content;
+    display: block;
+    table {
+        .mat-row {
+            .mat-cell {
+                padding-right: 0.5rem;
+            }
+        }
+
+        .sticky {
+            position: sticky;
+            top:0;
+            background-color: #424242;
+            z-index: 1;
         }
     }
 }

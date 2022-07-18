@@ -1,4 +1,4 @@
-<button mat-raised-button [ngClass]="{trans: !value}" color="{{name}}" [disabled]="disabled"  (click)="toggle()" aria-label="standard">
+<button mat-raised-button [ngClass]="{trans: value}" color="{{name}}" [disabled]="disabled"  (click)="toggle()" aria-label="standard">
     <ng-container *ngIf="disabled else active">
         UNAVAILABLE
     </ng-container>
