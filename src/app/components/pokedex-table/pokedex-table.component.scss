@@ -1,20 +1,36 @@
-.container {
-    overflow-y: scroll;
-    height: 100%;
-    width: fit-content;
-    display: block;
-    table {
-        .mat-row {
-            .mat-cell {
-                padding-right: 0.5rem;
+:host {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    .container {
+        overflow-y: scroll;
+        height: 100%;
+        width: fit-content;
+        display: block;
+        table {
+            .mat-header-row {
+                .mat-header-cell {
+                    cursor: pointer;
+                }
             }
-        }
+            .mat-row {
+                .mat-cell {
+                    padding-right: 0.5rem;
+                    &.id {
+                        width: 3.5rem;
+                        text-align: center;
+                    }
+                    &.name {
+                        width: 6rem;
+                    }
+                }
+            }
 
-        .sticky {
-            position: sticky;
-            top:0;
-            background-color: #424242;
-            z-index: 1;
+            .sticky {
+                position: sticky;
+                top:0;
+                background-color: #424242;
+                z-index: 1;
+            }
         }
     }
 }

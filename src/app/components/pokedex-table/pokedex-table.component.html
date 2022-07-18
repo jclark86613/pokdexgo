@@ -6,24 +6,43 @@
   [scrollWindow]="false">
   <table mat-table *ngIf="!loading" [dataSource]="tableData">
 
+    <!-- identifier -->
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('id')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          #
+          <mat-icon *ngIf="sortedColumn === 'id'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element" class="id">{{element.id}}</td>
     </ng-container>
 
     <ng-container matColumnDef="image">
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element"> <img width="50" height="50" src="{{'assets/dream-world/'+element.id+'.svg'}}"/> </td>
+      <th mat-header-cell *matHeaderCellDef>
+        <div fxLayout="row" fxLayoutAlign="center center"></div>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <img width="50" height="50" src="{{'assets/dream-world/'+element.id+'.svg'}}"/>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Pokemon</th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('name')">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          pokemon
+          <mat-icon *ngIf="sortedColumn === 'name'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
+      <td mat-cell *matCellDef="let element" class="name">{{element.name}}</td>
     </ng-container>
 
-    <!-- NORMAL -->
-    <ng-container matColumnDef="standard">
-      <th mat-header-cell *matHeaderCellDef>Standard</th>
+    <!-- checklist -->
+    <ng-container matColumnDef="normal" >
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('normal')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          normal
+          <mat-icon *ngIf="sortedColumn === 'normal'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="normal"
@@ -34,7 +53,12 @@
     </ng-container>
 
     <ng-container matColumnDef="shiny">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('shiny')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          shiny
+          <mat-icon *ngIf="sortedColumn === 'shiny'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="shiny"
@@ -45,7 +69,12 @@
     </ng-container>
 
     <ng-container matColumnDef="lucky">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('lucky')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          lucky
+          <mat-icon *ngIf="sortedColumn === 'lucky'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="lucky"
@@ -56,7 +85,12 @@
     </ng-container>
 
     <ng-container matColumnDef="perfect">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('perfect')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          perfect
+          <mat-icon *ngIf="sortedColumn === 'perfect'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="perfect"
@@ -67,7 +101,12 @@
     </ng-container>
 
     <ng-container matColumnDef="threestar">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('threestar')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          3-star
+          <mat-icon *ngIf="sortedColumn === 'threestar'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="3-star"
@@ -78,7 +117,12 @@
     </ng-container>
 
     <ng-container matColumnDef="shadow">
-      <th mat-header-cell *matHeaderCellDef>Rocket</th>
+      <th mat-header-cell *matHeaderCellDef  (click)="sortColumn('shadow')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          shadow
+          <mat-icon *ngIf="sortedColumn === 'shadow'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="shadow"
@@ -89,7 +133,12 @@
     </ng-container>
 
     <ng-container matColumnDef="purified">
-      <th mat-header-cell *matHeaderCellDef></th>
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('purified')">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          purified
+          <mat-icon *ngIf="sortedColumn === 'purified'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+        </div>
+      </th>
       <td mat-cell *matCellDef="let element">
         <app-pokedex-button
           name="purified"
