@@ -1,22 +1,26 @@
-<div class="container">
+<div class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="nextPage()"
+  [scrollWindow]="false">
   <table mat-table *ngIf="!loading" [dataSource]="tableData">
-  
+
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-  
-  
+
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element"> <img width="50" height="50" src="{{'assets/dream-world/'+element.id+'.svg'}}"/> </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Pokemon</th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-  
+
     <!-- NORMAL -->
     <ng-container matColumnDef="standard">
       <th mat-header-cell *matHeaderCellDef>Standard</th>
@@ -28,7 +32,7 @@
           (onClick)="updateEntry(element.id, 'normal', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="shiny">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -39,7 +43,7 @@
           (onClick)="updateEntry(element.id, 'shiny', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="lucky">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -50,7 +54,7 @@
           (onClick)="updateEntry(element.id, 'lucky', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="perfect">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -61,7 +65,7 @@
           (onClick)="updateEntry(element.id, 'perfect', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="threestar">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -72,7 +76,7 @@
           (onClick)="updateEntry(element.id, 'threestar', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="shadow">
       <th mat-header-cell *matHeaderCellDef>Rocket</th>
       <td mat-cell *matCellDef="let element">
@@ -83,7 +87,7 @@
           (onClick)="updateEntry(element.id, 'shadow', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="purified">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
@@ -94,7 +98,7 @@
           (onClick)="updateEntry(element.id, 'purified', $event)"></app-pokedex-button>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row class="sticky" *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>

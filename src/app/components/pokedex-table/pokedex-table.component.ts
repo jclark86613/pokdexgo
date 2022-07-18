@@ -59,7 +59,7 @@ export class PokedexTableComponent implements OnInit {
     }
   }
 
-  private nextPage(): void {
+  public nextPage(): void {
     if (!this.tableData) {
       this.resetPage();
     } else {

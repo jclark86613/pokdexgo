@@ -27,6 +27,8 @@ import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.
 import { MatTableModule } from '@angular/material/table';
 import { RegisterComponent } from './pages/register/register.component';
 import { PokedexButtonComponent } from './components/pokedex-button/pokedex-button.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { PokedexButtonComponent } from './components/pokedex-button/pokedex-butt
     MatInputModule,
     MatButtonModule,
     MatTableModule,
+    InfiniteScrollModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth())
   ],
