@@ -32,13 +32,13 @@ export class PokedexTableComponent implements OnInit {
     purified: false,
   }
   public loading: boolean = true;
-  public displayedColumns: string[] = ['id', 'image', 'name', 'normal', 'shiny', 'lucky', 'perfect', 'threestar', 'shadow', 'purified'];
   public checklist: string[] = ['normal', 'shiny', 'lucky', 'perfect', 'threestar', 'shadow', 'purified'];
+  public displayedColumns: string[] = ['id', 'image', 'name', ...this.checklist];
 
   constructor(private pokemonDataService: PokemonDataService) {}
 
   ngOnInit(): void {
-    const api = this.pokemonDataService;
+    const api: PokemonDataService = this.pokemonDataService;
     combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]) => {
       // new user, create object
       const emptyPokedex = JSON.parse(JSON.stringify(Array(Object.values(pokedex).length + 1).fill(this.emptyPokemon)));
@@ -140,7 +140,7 @@ export class PokedexTableComponent implements OnInit {
     clearTimeout(this.updateTimeout);
 
     this.updateTimeout = setTimeout( () => {
-      this.pokemonDataService.setUserPokedex(Object.assign({},this.userPokedex));
+      this.pokemonDataService.latestUserPokedex = Object.assign({},this.userPokedex);
     }, 5000);
   }
 

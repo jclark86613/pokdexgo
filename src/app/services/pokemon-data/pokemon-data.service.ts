@@ -10,18 +10,15 @@ import { User } from 'firebase/auth';
 })
 export class PokemonDataService {
   private POGOAPI: string = 'https://pogoapi.net/api/v1';
-  private POKIAPI: string = 'https://pokeapi.co/api/v2';
-  private static = {
-    pokedex: 'static/pokedex'
-  };
+  private POKEDEX_DOC: string = 'static/pokedex';
 
-
-
-  private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(this.static.pokedex);
+  private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(this.POKEDEX_DOC);
   private userPokedexDoc: AngularFirestoreDocument<UserPokedex>;
 
   constructor(private afs: AngularFirestore, private authService: AuthService) {
-    this.createPokedex();
+    // TODO move createPokedex() logic to firebase function
+    // run on a schedule to passivly pick up new updates
+    // this.createPokedex();
     this.authService.user.subscribe((user: User) => {
       this.userPokedexDoc = this.afs.doc<UserPokedex>(`pokedexs/${user.uid}`);
     })
@@ -43,15 +40,11 @@ export class PokemonDataService {
     this.userPokedexDoc.update(pokedex);
   }
 
-  public setUserPokedex(pokedex: UserPokedex): void {
-    this.userPokedexDoc.update(pokedex);
-  }
-
   public createNewUserPokedex(pokedex: UserPokedex): void {
     this.userPokedexDoc.set(pokedex);
   }
 
-  public createPokedex(): Promise<any> {
+  public createPokedex(): Promise<Pokedex> {
     return Promise.all([
       fetch(`${this.POGOAPI}/pokemon_names.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/released_pokemon.json`).then(resp => resp.json()),
@@ -62,7 +55,7 @@ export class PokemonDataService {
     })
   }
 
-  private generatePokedex(data) {
+  private generatePokedex(data): Pokedex {
     let [allPokemon] = data;
     const [,releases, shinies, rockets] = data;
     for (let id in allPokemon) {

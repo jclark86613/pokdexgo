@@ -28,7 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Tech Debt
 Registration/login:
-- Registartion: Validate confim password matches
+- Registartion: Validate confirm password matches
 - Registartion: Validate if email address already in uses
 - Login: Validate if wrong password used
 - Login: Validate if email account doesnt exist
@@ -43,14 +43,13 @@ Arcitecture:
 Performance:
 - Unrender table rows that are out of view
 
+Sorting:
+- Sort column should always put 'unavailable' at the bottom
+
 ## Todo
 Filtering:
-- by searchable name
-- by region
-- by complete/incomplete
-Sorting:
-- by name
-- by id
-Pagination:
-- Infinite scroll
-- reset pages on filter/sort changes
+- Filter by region
+- Filter by search box (name)
+
+Unit testing:
+- all of it...

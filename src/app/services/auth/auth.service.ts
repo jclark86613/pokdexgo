@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { GoogleAuthProvider, User, UserCredential } from '@angular/fire/auth';
+import { GoogleAuthProvider, User } from '@angular/fire/auth';
+import { UserCredential } from '@firebase/auth-types';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -18,7 +19,7 @@ export class AuthService {
     this._auth = auth;
   }
 
-  // firebase user obejct
+  // firebase user object
   private _authUser: BehaviorSubject<User> = new BehaviorSubject(null);
   public get user(): BehaviorSubject<User> {
     return this._authUser;
@@ -33,14 +34,12 @@ export class AuthService {
         this.router.navigate(['/login']);
       } else {
         this.router.navigate(['/dex']);
-
       }
     });
   }
 
-
   public login(provider: string, credentials?: {email: string; password: string}): void {
-    let login;
+    let login: Promise<UserCredential>;
 
     switch (provider) {
       case 'google':
@@ -50,20 +49,18 @@ export class AuthService {
         login = this.angularFireAuth.signInWithEmailAndPassword(credentials.email, credentials.password);
     }
 
-    login.then((user : User) => {
-      const auth = !!user;
-      if (auth) {
+    login.then((user : UserCredential) => {
+      if (!!user) {
         this.router.navigate(['/dex']);
       }
     })
   }
 
-  public register(email: string, password: string) {
+  public register(email: string, password: string): Promise<UserCredential> {
     return this.angularFireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-
-  logout(): Promise<void> {
+  public logout(): Promise<void> {
     return this.angularFireAuth.signOut();
   }
 }
