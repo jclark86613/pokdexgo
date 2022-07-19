@@ -1,3 +1,4 @@
-<div class="container" fxLayout="row" fxLayoutAlign="center">
-    <app-pokedex-table></app-pokedex-table>
+<div class="container" fxLayout="column" fxLayoutAlign="start center">
+    <app-pokedex-filters (region)="regionFilter = $event" (search)="search = $event"></app-pokedex-filters>
+    <app-pokedex-table [region]="regionFilter" [search]="search"></app-pokedex-table>
 </div>

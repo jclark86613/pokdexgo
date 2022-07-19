@@ -18,7 +18,7 @@ export class PokemonDataService {
   constructor(private afs: AngularFirestore, private authService: AuthService) {
     // TODO move createPokedex() logic to firebase function
     // run on a schedule to passivly pick up new updates
-    // this.createPokedex();
+    this.createPokedex();
     this.authService.user.subscribe((user: User) => {
       this.userPokedexDoc = this.afs.doc<UserPokedex>(`pokedexs/${user.uid}`);
     })
@@ -46,10 +46,11 @@ export class PokemonDataService {
 
   public createPokedex(): Promise<Pokedex> {
     return Promise.all([
-      fetch(`${this.POGOAPI}/pokemon_names.json`).then(resp => resp.json()),
+      fetch(`${this.POGOAPI}/pokemon_generations.json`).then(resp => resp.json()),
+      // fetch(`${this.POGOAPI}/pokemon_names.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/released_pokemon.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/shiny_pokemon.json`).then(resp => resp.json()),
-      fetch(`${this.POGOAPI}/shadow_pokemon.json`).then(resp => resp.json())
+      fetch(`${this.POGOAPI}/shadow_pokemon.json`).then(resp => resp.json()),
     ]).then((response) => {
       return this.generatePokedex(response);
     })
@@ -57,7 +58,10 @@ export class PokemonDataService {
 
   private generatePokedex(data): Pokedex {
     let [allPokemon] = data;
+    // API response is an array of arrays, flatten to single array
+    allPokemon = [].concat.apply([], Object.values(allPokemon));
     const [,releases, shinies, rockets] = data;
+
     for (let id in allPokemon) {
       const poke = allPokemon[id];
       const released = !!releases[poke.id];
@@ -73,8 +77,8 @@ export class PokemonDataService {
         rocket: rocket
       };
     }
-    this.latestPokedex = allPokemon;
-    return Object.values(allPokemon);
+    this.latestPokedex = Object.assign({}, allPokemon);
+    return allPokemon;
   }
 
 }

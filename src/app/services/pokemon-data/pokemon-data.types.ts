@@ -5,6 +5,7 @@ export interface Pokedex {
 export interface Pokemon {
     id: number;
     name: string;
+    generation_number: string;
     stdForms: StdForms;
 }
 

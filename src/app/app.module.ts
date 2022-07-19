@@ -28,6 +28,8 @@ import { MatTableModule } from '@angular/material/table';
 import { RegisterComponent } from './pages/register/register.component';
 import { PokedexButtonComponent } from './components/pokedex-button/pokedex-button.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { PokedexFiltersComponent } from './components/pokedex-filters/pokedex-filters.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     NavbarComponent,
     PokedexTableComponent,
     RegisterComponent,
-    PokedexButtonComponent
+    PokedexButtonComponent,
+    PokedexFiltersComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     MatButtonModule,
     MatTableModule,
     InfiniteScrollModule,
+    MatSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth())
   ],
