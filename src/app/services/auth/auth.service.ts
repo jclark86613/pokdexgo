@@ -4,7 +4,6 @@ import { UserCredential } from '@firebase/auth-types';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { LoginComponent } from 'src/app/pages/login/login.component';
 
 @Injectable({
   providedIn: 'root',

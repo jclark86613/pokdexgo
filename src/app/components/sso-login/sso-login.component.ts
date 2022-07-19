@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { FIREBASE_AUTH_ERRORS } from 'src/app/services/auth/auth.consts';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -13,12 +15,19 @@ export class SsoLoginComponent implements OnInit {
     name: 'Google',
     icon: faGoogle,
     action: () => {
-      this.authService.login('google');
+      this.login('google');
     }
   }]
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  private login(provider): void {
+    this.authService.login(provider)
+    .then((user) => {
+      if (!!user) {
+        this.router.navigate(['/dex']);
+      }
+    })
   }
-
 }
