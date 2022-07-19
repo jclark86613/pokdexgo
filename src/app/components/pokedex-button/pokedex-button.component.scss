@@ -1,34 +1,34 @@
+@use '../../styles/colors';
+
 button {
     width: 8.25rem;
 }
-.mat-normal {
-    background-color: #B3A6F5;
-}
+
 .mat-shiny {
-    background-color: #EEC535;
+    background-color: colors.$yellow;
 }
 .mat-perfect {
-    background-color: #E4A0AD;
+    background-color: colors.$pink;
 }
 .mat-threestar {
-    background-color: #EA9F28;
+    background-color: colors.$orange;
 }
 .mat-shadow {
-    background-color: #C599FB;
+    background-color:colors.$purple;
 }
 .mat-purified {
-    background-color: #A3D2CC;
+    background-color: colors.$egg-shell;
 }
 .mat-lucky {
-    background-color: #F6C171;
+    background-color: colors.$peach;
 }
 
 .mat-green {
-    color: green;
+    color: colors.$green;
 }
 
 .mat-red {
-    color: red;
+    color: colors.$red;
 }
 
 .trans {

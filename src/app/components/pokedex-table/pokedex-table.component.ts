@@ -41,9 +41,9 @@ export class PokedexTableComponent implements OnInit {
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;
-    combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]) => {
+    combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
       this.userPokedex = userPokedex;
-      this.pokedex = Object.values(pokedex);
+      this.pokedex = pokedex;
 
       this.resetPage();
       this.sortColumn(this.sortedColumn)

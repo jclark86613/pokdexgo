@@ -46,3 +46,7 @@ Table:
 ## Todo
 Unit testing:
 - all of it...
+
+Empty state
+
+Loading state

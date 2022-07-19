@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Pokedex, Regions, UserPokedex } from './pokemon-data.types';
+import { Pokedex, Pokemon, Regions, UserPokedex } from './pokemon-data.types';
 import { AuthService } from '../auth/auth.service';
 import { User } from 'firebase/auth';
 import { staticFiles } from './pokemon-data.consts';
 import { map } from 'rxjs/operators';
-import { empty } from '@angular-devkit/schematics';
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +27,13 @@ export class PokemonDataService {
     return this.regionsDoc.valueChanges();
   }
 
-  public get pokedex(): Observable<Pokedex> {
-    return this.pokedexDoc.valueChanges();
+  public get pokedex(): Observable<Pokemon[]> {
+    return this.pokedexDoc.valueChanges()
+      .pipe(
+        map((pokedex) => {
+          return Object.values(pokedex);
+        })
+      )
   }
 
   public get emptyUser(): Observable<UserPokedex> {
