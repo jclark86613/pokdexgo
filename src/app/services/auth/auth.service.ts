@@ -4,6 +4,7 @@ import { UserCredential } from '@firebase/auth-types';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { LoginComponent } from 'src/app/pages/login/login.component';
 
 @Injectable({
   providedIn: 'root',
@@ -32,13 +33,11 @@ export class AuthService {
       this.isAuth = !!user;
       if (!user) {
         this.router.navigate(['/login']);
-      } else {
-        this.router.navigate(['/dex']);
       }
     });
   }
 
-  public login(provider: string, credentials?: {email: string; password: string}): void {
+  public login(provider: string, credentials?: {email: string; password: string}): Promise<UserCredential> {
     let login: Promise<UserCredential>;
 
     switch (provider) {
@@ -49,11 +48,7 @@ export class AuthService {
         login = this.angularFireAuth.signInWithEmailAndPassword(credentials.email, credentials.password);
     }
 
-    login.then((user : UserCredential) => {
-      if (!!user) {
-        this.router.navigate(['/dex']);
-      }
-    })
+    return login;
   }
 
   public register(email: string, password: string): Promise<UserCredential> {

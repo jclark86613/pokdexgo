@@ -12,12 +12,15 @@
                 <mat-form-field appearance="standard">
                     <mat-label>Password</mat-label>
                     <input matInput type="password" placeholder="password" formControlName="password">
+                    <mat-error *ngIf="(form.get('password')).errors?.required">Password is required</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="standard">
                     <mat-label>Confirm Password</mat-label>
                     <input matInput type="password" placeholder="password" formControlName="confPassword">
+                    <mat-error *ngIf="(form.get('confPassword')).errors?.required">Password confirmation is required</mat-error>
                 </mat-form-field>
-                <div class="buttons" fxLayout="row" fxLayoutGap="8px">
+                <mat-error *ngIf="regError">{{regError}}</mat-error>
+                <div class="buttons" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
                     <button mat-raised-button color="primary" (click)="register(form.value)">REGISTER</button>
                 </div>
             </form>

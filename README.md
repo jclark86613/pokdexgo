@@ -47,9 +47,5 @@ Sorting:
 - Sort column should always put 'unavailable' at the bottom
 
 ## Todo
-Filtering:
-- Filter by region
-- Filter by search box (name)
-
 Unit testing:
 - all of it...
