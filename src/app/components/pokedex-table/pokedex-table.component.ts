@@ -22,11 +22,11 @@ export class PokedexTableComponent implements OnInit {
   };
 
   public tableData;
-  public userPokedex: UserPokedex;
   public loading: boolean = true;
-  public checklist: string[] = ['normal', 'shiny', 'lucky', 'perfect', 'threestar', 'shadow', 'purified'];
+  private checklist: string[] = ['normal', 'shiny', 'lucky', 'perfect', 'threestar', 'shadow', 'purified'];
   public displayedColumns: string[] = ['id', 'image', 'name', ...this.checklist];
 
+  private userPokedex: UserPokedex;
   private pokedex: Pokemon[];
   private filtedPokedex: Pokemon[];
   private page: number = 0;
@@ -41,11 +41,8 @@ export class PokedexTableComponent implements OnInit {
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;
-    combineLatest([api.pokedex, api.userPokedex, api.emptyUser]).pipe(take(1)).subscribe(([pokedex, userPokedex, emptyUserPokedec]) => {
-      // merge empty dex into current user, incase anything new has been added
-      this.userPokedex = {...emptyUserPokedec, ...userPokedex};
-
-      // cache total pokemon list
+    combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]) => {
+      this.userPokedex = userPokedex;
       this.pokedex = Object.values(pokedex);
 
       this.resetPage();

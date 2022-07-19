@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Pokedex, Regions, UserPokedex } from './pokemon-data.types';
 import { AuthService } from '../auth/auth.service';
 import { User } from 'firebase/auth';
 import { staticFiles } from './pokemon-data.consts';
+import { map } from 'rxjs/operators';
+import { empty } from '@angular-devkit/schematics';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonDataService {
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
-  private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGION_DOC);
+  private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
   private emptyUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
   private userPokedexDoc: AngularFirestoreDocument<UserPokedex>;
 
@@ -21,6 +23,7 @@ export class PokemonDataService {
     })
   }
 
+  // GET STATIC FILES FOR BUILDING THE PAGE
   public get regionsList(): Observable<Regions> {
     return this.regionsDoc.valueChanges();
   }
@@ -29,20 +32,23 @@ export class PokemonDataService {
     return this.pokedexDoc.valueChanges();
   }
 
-  public get userPokedex(): Observable<UserPokedex> {
-    return this.userPokedexDoc.valueChanges();
-  }
-
   public get emptyUser(): Observable<UserPokedex> {
     return this.emptyUserDoc.valueChanges();
   }
 
-  public set latestUserPokedex(pokedex: UserPokedex) {
-    this.userPokedexDoc.update(pokedex);
+  // GET USERS POKEDEX
+  public get userPokedex(): Observable<UserPokedex> {
+    return combineLatest([this.userPokedexDoc.valueChanges(), this.emptyUserDoc.get()])
+    .pipe(
+      map(([userPokedex, emptyUser]) => {
+        return {...emptyUser.data(), ...userPokedex};
+      })
+    )
   }
 
-  public createNewUserPokedex(pokedex: UserPokedex): void {
-    this.userPokedexDoc.set(pokedex);
+  // POST USERS LATEST POKEDEX UPDATES
+  public set latestUserPokedex(pokedex: UserPokedex) {
+    this.userPokedexDoc.update(pokedex);
   }
 
 }
