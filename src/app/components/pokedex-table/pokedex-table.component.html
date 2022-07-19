@@ -37,115 +37,19 @@
     </ng-container>
 
     <!-- checklist -->
-    <ng-container matColumnDef="normal" >
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('normal')">
+    <ng-container *ngFor="let column of checklist" matColumnDef="{{column}}">
+      <th mat-header-cell *matHeaderCellDef (click)="sortColumn(column)">
         <div fxLayout="row" fxLayoutAlign="center center">
-          normal
-          <mat-icon *ngIf="sortedColumn === 'normal'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+          {{column|titlecase}}
+          <mat-icon *ngIf="sortedColumn === column">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
         </div>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="normal"
-          [disabled]="!element.stdForms.normal"
-          [value]="userPokedex[element.id]?.normal"
-          (onClick)="updateEntry(element.id, 'normal', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="shiny">
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('shiny')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          shiny
-          <mat-icon *ngIf="sortedColumn === 'shiny'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="shiny"
-          [disabled]="!element.stdForms.shiny"
-          [value]="userPokedex[element.id]?.shiny"
-          (onClick)="updateEntry(element.id, 'shiny', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="lucky">
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('lucky')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          lucky
-          <mat-icon *ngIf="sortedColumn === 'lucky'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="lucky"
-          [disabled]="!element.stdForms.lucky"
-          [value]="userPokedex[element.id]?.lucky"
-          (onClick)="updateEntry(element.id, 'lucky', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="perfect">
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('perfect')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          perfect
-          <mat-icon *ngIf="sortedColumn === 'perfect'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="perfect"
-          [disabled]="!element.stdForms.perfect"
-          [value]="userPokedex[element.id]?.perfect"
-          (onClick)="updateEntry(element.id, 'perfect', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="threestar">
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('threestar')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          3-star
-          <mat-icon *ngIf="sortedColumn === 'threestar'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="3-star"
-          [disabled]="!element.stdForms.threestar"
-          [value]="userPokedex[element.id]?.threestar"
-          (onClick)="updateEntry(element.id, 'threestar', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="shadow">
-      <th mat-header-cell *matHeaderCellDef  (click)="sortColumn('shadow')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          shadow
-          <mat-icon *ngIf="sortedColumn === 'shadow'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="shadow"
-          [disabled]="!element.stdForms.rocket"
-          [value]="userPokedex[element.id]?.shadow"
-          (onClick)="updateEntry(element.id, 'shadow', $event)"></app-pokedex-button>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="purified">
-      <th mat-header-cell *matHeaderCellDef (click)="sortColumn('purified')">
-        <div fxLayout="row" fxLayoutAlign="center center">
-          purified
-          <mat-icon *ngIf="sortedColumn === 'purified'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-        </div>
-      </th>
-      <td mat-cell *matCellDef="let element">
-        <app-pokedex-button
-          name="purified"
-          [disabled]="!element.stdForms.rocket"
-          [value]="userPokedex[element.id]?.purified"
-          (onClick)="updateEntry(element.id, 'purified', $event)"></app-pokedex-button>
-      </td>
+        <td mat-cell *matCellDef="let element">
+          <app-pokedex-button
+            [name]="column"
+            [disabled]="!element.stdForms[column]"
+            [value]="userPokedex[element.id][column]"
+            (onClick)="updateEntry(element.id, column, $event)"></app-pokedex-button>
+        </td>
     </ng-container>
 
     <tr mat-header-row class="sticky" *matHeaderRowDef="displayedColumns"></tr>
