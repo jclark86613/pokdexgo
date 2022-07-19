@@ -83,7 +83,8 @@ export class PokedexGenerateDataService {
         lucky: released,
         perfect: released,
         threestar: released,
-        rocket: rocket
+        shadow: rocket,
+        purified: rocket
       };
     }
     this.pokedexDoc.update(Object.assign({}, allPokemon));

@@ -27,24 +27,22 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Tech Debt
-Registration/login:
-- Registartion: Validate confirm password matches
-- Registartion: Validate if email address already in uses
-- Login: Validate if wrong password used
-- Login: Validate if email account doesnt exist
-
 Arcitecture:
-- Move "Generate Pokdex" function to a firebase function. Update on a schedule.
 - Localstorage all documents required to run application
   - Pokedex
   - User Pokedex
-  - Regions (to be implemented)
+  - Regions
+  - empty user
 
 Performance:
 - Unrender table rows that are out of view
 
 Sorting:
 - Sort column should always put 'unavailable' at the bottom
+
+Table:
+- componentise similar workflow coloumn cells
+- ngFor similar workflow column cells
 
 ## Todo
 Unit testing:
