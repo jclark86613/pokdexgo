@@ -27,6 +27,7 @@ export class AuthService {
 
 
   constructor(private angularFireAuth: AngularFireAuth, private router: Router) {
+    this.angularFireAuth.setPersistence('local');
     this.angularFireAuth.onAuthStateChanged((user: User) => {
       this._authUser.next(user);
       this.isAuth = !!user;

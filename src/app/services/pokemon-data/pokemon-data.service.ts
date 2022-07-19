@@ -18,7 +18,9 @@ export class PokemonDataService {
 
   constructor(private afs: AngularFirestore, private authService: AuthService) {
     this.authService.user.subscribe((user: User) => {
-      this.userPokedexDoc = this.afs.doc<UserPokedex>(`pokedexs/${user.uid}`);
+      if(!!user) {
+        this.userPokedexDoc = this.afs.doc<UserPokedex>(`pokedexs/${user.uid}`);
+      }
     })
   }
 
