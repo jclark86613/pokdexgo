@@ -4,20 +4,18 @@ import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
 import { take } from 'rxjs/operators';
-import { Region } from '../pokedex-filters/pokedex-filters.component';
+import { PokedexGenerateDataService } from 'src/app/services/pokedex-generate-data/pokedex-generate-data.service';
+
 @Component({
   selector: 'app-pokedex-table',
   templateUrl: './pokedex-table.component.html',
   styleUrls: ['./pokedex-table.component.scss']
 })
 export class PokedexTableComponent implements OnInit {
-  private _regionFilter: Region;
-  @Input() set region(region: Region) {
+  @Input() set region(region: number) {
     this._regionFilter = region;
     this.resetPage();
   };
-
-  private _searchFilter: string;
   @Input() set search(search: string) {
     this._searchFilter = search;
     this.resetPage();
@@ -36,31 +34,16 @@ export class PokedexTableComponent implements OnInit {
   private updateTimeout: ReturnType<typeof setTimeout>;
   private orderAsending: boolean = false;
   private sortedColumn: string = 'id';
-  private emptyPokemon = {
-    normal: false,
-    shiny: false,
-    perfect: false,
-    lucky: false,
-    threestar: false,
-    shadow: false,
-    purified: false,
-  }
+  private _searchFilter: string;
+  private _regionFilter: number;
 
-  constructor(private pokemonDataService: PokemonDataService) {}
+  constructor(private pokemonDataService: PokemonDataService, private pokedexGenerateDataService: PokedexGenerateDataService) {}
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;
-    combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]) => {
-
-      // new user, create object
-      const emptyPokedex = JSON.parse(JSON.stringify(Array(Object.values(pokedex).length + 1).fill(this.emptyPokemon)));
-      if (!userPokedex) {
-        this.pokemonDataService.createNewUserPokedex({...emptyPokedex});
-        return;
-      }
-
+    combineLatest([api.pokedex, api.userPokedex, api.emptyUser]).pipe(take(1)).subscribe(([pokedex, userPokedex, emptyUserPokedec]) => {
       // merge empty dex into current user, incase anything new has been added
-      this.userPokedex = {...emptyPokedex, ...userPokedex};
+      this.userPokedex = {...emptyUserPokedec, ...userPokedex};
 
       // cache total pokemon list
       this.pokedex = Object.values(pokedex);
@@ -127,7 +110,7 @@ export class PokedexTableComponent implements OnInit {
         if (!this._regionFilter) {
           return true;
         }
-        return this._regionFilter === pokemon.generation_number;
+        return this._regionFilter === parseInt(pokemon.generation_number,10);
       })
       .filter((pokemon: Pokemon) => {
         if (!this._searchFilter) {

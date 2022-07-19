@@ -28,3 +28,12 @@ export interface UserPokemon {
     shadow: boolean;
     purified: boolean;
 }
+
+export interface Regions {
+    [key: number]: Region;
+}
+
+export interface Region {
+    id: number;
+    name: string;
+}

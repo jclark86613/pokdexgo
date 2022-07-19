@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Region } from 'src/app/components/pokedex-filters/pokedex-filters.component';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { PagesService } from '../pages.service';
 
@@ -10,7 +9,7 @@ import { PagesService } from '../pages.service';
 })
 export class PokedexComponent extends BasePageComponent {
   public search: string;
-  public regionFilter: Region;
+  public regionFilter: number;
 
   protected _pageTitle: string = 'Pokedex - Pokemon go pokedex checklist';
   constructor(protected pagesService: PagesService) {
