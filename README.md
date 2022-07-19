@@ -42,7 +42,6 @@ Sorting:
 
 Table:
 - componentise similar workflow coloumn cells
-- ngFor similar workflow column cells
 
 ## Todo
 Unit testing:
