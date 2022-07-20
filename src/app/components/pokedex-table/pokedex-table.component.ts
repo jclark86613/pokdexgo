@@ -37,18 +37,21 @@ export class PokedexTableComponent implements OnInit {
   private sortedColumn: string = 'id';
   private _searchFilter: string;
   private _regionFilter: number;
+  private _init: boolean = true;
 
   constructor(private pokemonDataService: PokemonDataService) {}
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;
-    combineLatest([api.pokedex, api.userPokedex]).pipe(take(1)).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
+    combineLatest([api.pokedex, api.userPokedex]).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
       this.userPokedex = userPokedex;
       this.pokedex = pokedex;
 
-      this.resetPage();
-      this.sortColumn(this.sortedColumn);
-      this.loading = false;
+      if (this._init) {
+        this.resetPage();
+        this._init = false;
+        this.loading = false;
+      }
     });
   }
 
@@ -88,7 +91,7 @@ export class PokedexTableComponent implements OnInit {
 
     this.updateTimeout = setTimeout( () => {
       this.pokemonDataService.latestUserPokedex = Object.assign({},this.userPokedex);
-    }, 5000);
+    }, 1000);
   }
 
   private resetPage(): void {
