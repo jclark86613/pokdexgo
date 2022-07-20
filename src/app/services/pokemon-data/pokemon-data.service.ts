@@ -54,7 +54,7 @@ export class PokemonDataService {
 
   // POST USERS LATEST POKEDEX UPDATES
   public set latestUserPokedex(pokedex: UserPokedex) {
-    this.userPokedexDoc.update(pokedex);
+    this.userPokedexDoc.set(pokedex);
   }
 
 }
