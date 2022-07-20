@@ -1,11 +1,11 @@
 <div class="container"
+  *ngIf="!loading else loadingState"
   infiniteScroll
   [infiniteScrollDistance]="1"
   [infiniteScrollThrottle]="50"
   (scrolled)="nextPage()"
   [scrollWindow]="false">
-  <table mat-table *ngIf="!loading" [dataSource]="tableData">
-
+  <table mat-table [dataSource]="tableData">
     <!-- identifier -->
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef (click)="sortColumn('id')">
@@ -22,7 +22,7 @@
         <div fxLayout="row" fxLayoutAlign="center center"></div>
       </th>
       <td mat-cell *matCellDef="let element">
-        <img width="50" height="50" src="{{'assets/dream-world/'+element.id+'.svg'}}"/>
+        <img width="50" height="50" src="{{'assets/dream-world/'+element.id+'.svg'}}" onerror="this.src='https://pngimg.com/uploads/pokeball/pokeball_PNG21.png'"/>
       </td>
     </ng-container>
 
@@ -56,3 +56,15 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
+
+<ng-template #loadingState>
+  <mat-card class="empty-container" fxLayout="columns" fxLayoutAlign="center center">
+    loadingState
+  </mat-card>
+</ng-template>
+
+<ng-template #emptyState>
+    <mat-card class="empty-container" fxLayout="columns" fxLayoutAlign="center center">
+      emptyState
+    </mat-card>
+</ng-template>

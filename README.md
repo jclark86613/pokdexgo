@@ -40,13 +40,11 @@ Performance:
 Sorting:
 - Sort column should always put 'unavailable' at the bottom
 
-Table:
-- componentise similar workflow coloumn cells
-
 ## Todo
-Unit testing:
-- all of it...
+- Unit testing:
+  - all of it...
+- Empty state
+- Loading state
 
-Empty state
-
-Loading state
+## known issues
+- if tableData.length === 0 table doesn't rerender to show the empty state.

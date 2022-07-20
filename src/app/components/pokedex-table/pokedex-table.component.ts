@@ -46,7 +46,7 @@ export class PokedexTableComponent implements OnInit {
       this.pokedex = pokedex;
 
       this.resetPage();
-      this.sortColumn(this.sortedColumn)
+      this.sortColumn(this.sortedColumn);
       this.loading = false;
     });
   }
@@ -64,7 +64,6 @@ export class PokedexTableComponent implements OnInit {
     } else {
       this.sortByChecklist(value);
     }
-
     this.resetPage();
   }
 
@@ -115,12 +114,11 @@ export class PokedexTableComponent implements OnInit {
         }
         return pokemon.name.toLowerCase().includes(this._searchFilter);
       });
-
     this.tableData = this.filtedPokedex.slice(start,end);
   }
 
   private sortByIdentifier(value: string): void {
-    this.filtedPokedex.sort((a:Pokemon, b: Pokemon) => {
+    this.pokedex.sort((a:Pokemon, b: Pokemon) => {
       let output = 0;
       switch(true) {
         case a[value] > b[value]:
@@ -138,7 +136,7 @@ export class PokedexTableComponent implements OnInit {
   }
 
   private sortByChecklist(value: string): void {
-    this.filtedPokedex.sort((a:Pokemon, b: Pokemon) => {
+    this.pokedex.sort((a:Pokemon, b: Pokemon) => {
       let output = 0;
       const usera = this.userPokedex[a.id][value] ? 1 : -1;
       const userb = this.userPokedex[b.id][value] ? 1 : -1;
