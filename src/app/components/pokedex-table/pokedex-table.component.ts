@@ -4,7 +4,6 @@ import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
 import { take } from 'rxjs/operators';
-import { PokedexGenerateDataService } from 'src/app/services/pokedex-generate-data/pokedex-generate-data.service';
 
 @Component({
   selector: 'app-pokedex-table',
@@ -39,7 +38,7 @@ export class PokedexTableComponent implements OnInit {
   private _searchFilter: string;
   private _regionFilter: number;
 
-  constructor(private pokemonDataService: PokemonDataService, private pokedexGenerateDataService: PokedexGenerateDataService) {}
+  constructor(private pokemonDataService: PokemonDataService) {}
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;

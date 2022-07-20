@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconTestingModule } from '@angular/material/icon/testing';
 
 import { PokedexButtonComponent } from './pokedex-button.component';
 
@@ -8,7 +9,10 @@ describe('PokedexButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PokedexButtonComponent ]
+      declarations: [ PokedexButtonComponent ],
+      imports: [
+        MatIconTestingModule
+      ]
     })
     .compileComponents();
 

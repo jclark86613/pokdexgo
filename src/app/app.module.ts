@@ -16,11 +16,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { environment } from '../environments/environment';
-import { provideAuth,getAuth } from '@angular/fire/auth';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
 import { MatButtonModule } from '@angular/material/button';
 import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.component';
@@ -59,6 +59,7 @@ import { AuthService } from './services/auth/auth.service';
     MatToolbarModule,
     FlexLayoutModule,
     MatCardModule,
+    FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -67,9 +68,12 @@ import { AuthService } from './services/auth/auth.service';
     InfiniteScrollModule,
     MatSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
-    provideAuth(() => getAuth())
+    AngularFireAuthModule
   ],
-  providers: [AuthService, PokedexGenerateDataService],
+  providers: [
+    AuthService,
+    PokedexGenerateDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

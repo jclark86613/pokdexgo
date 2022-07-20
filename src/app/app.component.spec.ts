@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
+import { FIREBASE_OPTIONS } from 'angularfire2';
+import { environment } from 'src/environments/environment';
+import { FirestoreStub } from 'src/mocks/firestore.mock';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -9,8 +14,13 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
       ],
+      providers: [
+        { provide: AngularFirestore, useValue: FirestoreStub },
+        { provide: FIREBASE_OPTIONS, useValue: environment.firebase }
+      ]
     }).compileComponents();
   });
 
@@ -18,18 +28,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'pokdexgo'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('pokdexgo');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('pokdexgo app is running!');
   });
 });
