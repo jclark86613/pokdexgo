@@ -43,8 +43,3 @@ Sorting:
 ## Todo
 - Unit testing:
   - all of it...
-- Empty state
-- Loading state
-
-## known issues
-- if tableData.length === 0 table doesn't rerender to show the empty state.
