@@ -30,6 +30,7 @@ import { PokedexButtonComponent } from './components/pokedex-button/pokedex-butt
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PokedexFiltersComponent } from './components/pokedex-filters/pokedex-filters.component';
 import { MatSelectModule } from '@angular/material/select';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     PokedexTableComponent,
     RegisterComponent,
     PokedexButtonComponent,
-    PokedexFiltersComponent
+    PokedexFiltersComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,

@@ -16,18 +16,23 @@
             .mat-header-row {
                 .mat-header-cell {
                     cursor: pointer;
+                    width: 8.75rem;
+                    &.mat-column-id {
+                        width: 3.5rem;
+                        text-align: center;
+                    }
+                    &.mat-column-image {
+                        width: 3.75rem;
+                        text-align: center;
+                    }
+                    &.mat-column-name {
+                        width: 6rem;
+                    }
                 }
             }
             .mat-row {
                 .mat-cell {
                     padding-right: 0.5rem;
-                    &.id {
-                        width: 3.5rem;
-                        text-align: center;
-                    }
-                    &.name {
-                        width: 6rem;
-                    }
                 }
             }
 
@@ -39,9 +44,13 @@
             }
         }
     }
-    .empty-container {
+    .loading-container {
         height: 100%;
         width: 100% !important;
         display: block;
     }
+}
+
+.empty-state {
+    padding: 2rem;
 }

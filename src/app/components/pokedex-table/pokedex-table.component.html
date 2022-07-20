@@ -54,17 +54,19 @@
 
     <tr mat-header-row class="sticky" *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        <div class="empty-state" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+          <img width="200" height="200" src="https://pngimg.com/uploads/pokeball/pokeball_PNG21.png">
+          <span>No data matching the filter.</span>
+        </div>
+      </td>
+    </tr>
   </table>
 </div>
 
 <ng-template #loadingState>
-  <mat-card class="empty-container" fxLayout="columns" fxLayoutAlign="center center">
-    loadingState
+  <mat-card class="loading-container" fxLayout="columns" fxLayoutAlign="center center">
+    <app-loading-spinner></app-loading-spinner>
   </mat-card>
-</ng-template>
-
-<ng-template #emptyState>
-    <mat-card class="empty-container" fxLayout="columns" fxLayoutAlign="center center">
-      emptyState
-    </mat-card>
 </ng-template>
