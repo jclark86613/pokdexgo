@@ -34,7 +34,6 @@ export class PokedexGenerateDataService {
   }
 
   public createNewUserDoc(): void {
-    console.log('createNewUserDoc')
     this.pokemonDataService.pokedex.subscribe((pokedex: Pokedex) => {
       const newUser = JSON.parse(JSON.stringify(Array(Object.values(pokedex).length + 1).fill(this.emptyPokemon)));
       this.newUserDoc.update(Object.assign({}, newUser));
@@ -42,7 +41,6 @@ export class PokedexGenerateDataService {
   };
 
   public createRegionList(): void {
-    console.log('createRegionList')
     let id = 1;
     const regions = this.availableRegions.map(region => {
       return {
@@ -54,7 +52,6 @@ export class PokedexGenerateDataService {
   }
 
   public createPokedex(): Promise<Pokedex> {
-    console.log('createPokedex')
     return Promise.all([
       fetch(`${this.POGOAPI}/pokemon_generations.json`).then(resp => resp.json()),
       fetch(`${this.POGOAPI}/released_pokemon.json`).then(resp => resp.json()),
