@@ -31,6 +31,8 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PokedexFiltersComponent } from './components/pokedex-filters/pokedex-filters.component';
 import { MatSelectModule } from '@angular/material/select';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { PokedexGenerateDataService } from './services/pokedex-generate-data/pokedex-generate-data.service';
+import { AuthService } from './services/auth/auth.service';
 
 
 @NgModule({
@@ -67,7 +69,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
     AngularFireModule.initializeApp(environment.firebase),
     provideAuth(() => getAuth())
   ],
-  providers: [],
+  providers: [AuthService, PokedexGenerateDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
