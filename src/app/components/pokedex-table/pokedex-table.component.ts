@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
@@ -12,6 +12,8 @@ import { PokedexGenerateDataService } from 'src/app/services/pokedex-generate-da
   styleUrls: ['./pokedex-table.component.scss']
 })
 export class PokedexTableComponent implements OnInit {
+  @ViewChild('scrollContainer') scrollContainer:ElementRef;
+
   @Input() set region(region: number) {
     this._regionFilter = region;
     this.resetPage();
@@ -115,6 +117,9 @@ export class PokedexTableComponent implements OnInit {
         return pokemon.name.toLowerCase().includes(this._searchFilter);
       });
     this.tableData = this.filtedPokedex.slice(start,end);
+    if(this.scrollContainer) {
+      this.scrollContainer.nativeElement.scrollTop = 0;
+    }
   }
 
   private sortByIdentifier(value: string): void {
