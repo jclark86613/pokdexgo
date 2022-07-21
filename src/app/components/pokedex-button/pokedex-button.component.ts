@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-type ButtonName = 'normal' | 'shiny' | 'perfect' | 'threestar' | 'shadow' | 'purifed';
+export type ButtonName = 'normal' | 'shiny' | 'perfect' | 'threestar' | 'shadow' | 'purifed';
 
 @Component({
   selector: 'app-pokedex-button',
