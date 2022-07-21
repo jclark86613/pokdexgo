@@ -1,9 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
-import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
-
-type StandardForm = 'normal' | 'threestar' | 'perfect' | 'shiny' | 'lucky' | 'shadow' | 'purified';
+import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, STANDARD_POKEMON_FORMS_EMUN, StdPokemonForm, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
 
 @Component({
   selector: 'app-pokedex-table',
@@ -24,7 +22,7 @@ export class PokedexTableComponent implements OnInit {
 
   public tableData;
   public loading: boolean = true;
-  private checklist: StandardForm[] = ['normal', 'threestar', 'perfect', 'shiny', 'lucky', 'shadow', 'purified'];
+  private checklist: StdPokemonForm[] = [...STANDARD_POKEMON_FORMS_ARRAY];
   public displayedColumns: string[] = ['id', 'image', 'name', ...this.checklist];
 
   private userPokedex: UserPokedex;
@@ -57,7 +55,7 @@ export class PokedexTableComponent implements OnInit {
     });
   }
 
-  public sortColumn(value: StandardForm): void {
+  public sortColumn(value: StdPokemonForm): void {
     if (this.sortedColumn !== value) {
       this.sortedColumn = value;
       this.orderAsending = true;
@@ -84,7 +82,7 @@ export class PokedexTableComponent implements OnInit {
     }
   }
 
-  public updateEntry(id:string, value: StandardForm, forced: boolean) {
+  public updateEntry(id:string, value: StdPokemonForm, forced: boolean) {
     if (this._saving) { return;}
     const pokemon = this.userPokedex[id];
     if (pokemon) {
@@ -101,16 +99,16 @@ export class PokedexTableComponent implements OnInit {
     }, 10000);
   }
 
-  private cascadeUpdates(id:string, value: StandardForm): void {
+  private cascadeUpdates(id:string, value: StdPokemonForm): void {
       switch (value) {
         case 'perfect':
-          this.updateEntry(id, 'threestar', true);
+          this.updateEntry(id, STANDARD_POKEMON_FORMS_EMUN.THREESTAR, true);
         case 'threestar':
         case 'shiny':
         case 'lucky':
         case 'shadow':
         case 'purified':
-          this.updateEntry(id, 'normal', true);
+          this.updateEntry(id, STANDARD_POKEMON_FORMS_EMUN.NORMAL, true);
       }
   }
 

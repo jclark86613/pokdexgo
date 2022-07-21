@@ -8,7 +8,7 @@
     <mat-label>Region</mat-label>
     <mat-select (selectionChange)="setRegionFilter($event)">
       <mat-option *ngFor="let region of regionFilter | keyvalue" [value]="region.value.id">
-        {{region.value.name}}
+        {{region.value.name | titlecase}}
       </mat-option>
     </mat-select>
   </mat-form-field>

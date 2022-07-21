@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class PokemonDataService {
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
   private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
+  private stdFormsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.STD_FORMS_DOC);
   private emptyUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
   private userPokedexDoc: AngularFirestoreDocument<UserPokedex>;
 
@@ -27,6 +28,9 @@ export class PokemonDataService {
   // GET STATIC FILES FOR BUILDING THE PAGE
   public get regionsList(): Observable<Regions> {
     return this.regionsDoc.valueChanges();
+  }
+  public get stdFormsList(): Observable<Regions> {
+    return this.stdFormsDoc.valueChanges();
   }
 
   public get pokedex(): Observable<Pokemon[]> {

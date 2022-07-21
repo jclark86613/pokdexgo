@@ -4,7 +4,7 @@
   "scripts": {
     "blitz": "git clean -fxd && npm i",
     "ng": "ng",
-    "start": "npm i && ng serve",
+    "start": "ng serve",
     "build": "ng build",
     "build:prod": "ng build --aot --build-optimizer --optimization --output-hashing='all'",
     "test": "jest",

@@ -34,6 +34,13 @@
             "scripts": []
           },
           "configurations": {
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -64,13 +71,14 @@
           }
         },
         "serve": {
+          "defaultConfiguration": "development",
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "pokdexgo:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "pokdexgo:build:production"
+            "development": {
+              "browserTarget": "pokdexgo:build:development"
             }
           }
         },

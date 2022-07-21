@@ -1,54 +1,63 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { staticFiles } from '../pokemon-data/pokemon-data.consts';
-import { PokemonDataService } from '../pokemon-data/pokemon-data.service';
-import { Pokedex, Regions, UserPokedex } from '../pokemon-data/pokemon-data.types';
+import { EMPTY_POKEMON, Pokedex, RegionsDoc, REGIONS_ARRAY, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonFormsDoc, UserPokedex, UserPokemon } from '../pokemon-data/pokemon-data.types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokedexGenerateDataService {
   private POGOAPI: string = 'https://pogoapi.net/api/v1';
-  private availableRegions = ['Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar'];
-  private emptyPokemon = {
-    normal: false,
-    shiny: false,
-    perfect: false,
-    lucky: false,
-    threestar: false,
-    shadow: false,
-    purified: false,
-  }
+  private emptyPokemon: UserPokemon = EMPTY_POKEMON;
 
   // doc listeners
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
-  private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
-  private newUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
+  private regionsDoc: AngularFirestoreDocument<RegionsDoc> = this.afs.doc<RegionsDoc>(staticFiles.REGIONS_LIST_DOC);
+  private emptyPokemonDoc: AngularFirestoreDocument<RegionsDoc> = this.afs.doc<RegionsDoc>(staticFiles.EMPTY_POKEMON_DOC);
+  private stdFormsDoc: AngularFirestoreDocument<StdPokemonFormsDoc> = this.afs.doc<StdPokemonFormsDoc>(staticFiles.STD_FORMS_DOC);
+  private emptyUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
 
-  constructor(private afs: AngularFirestore, private pokemonDataService: PokemonDataService) {
+  constructor(private afs: AngularFirestore) {
     // TODO move createPokedex() logic to firebase function
     // run on a schedule to passivly pick up new updates
     this.createPokedex();
+    this.createEmptyPokemon();
     this.createRegionList();
+    this.createStandardFormsList();
     this.createNewUserDoc();
   }
 
+  public createEmptyPokemon(): void {
+    this.emptyPokemonDoc.set(this.emptyPokemon);
+  }
+
+  public createStandardFormsList(): void {
+    let id = 1;
+    const regions: StdPokemonFormsDoc = STANDARD_POKEMON_FORMS_ARRAY.map(stdForms => {
+      return {
+        id: id++,
+        name: stdForms
+      }
+    })
+    this.stdFormsDoc.set(Object.assign({}, regions));
+  }
+
   public createNewUserDoc(): void {
-    this.pokemonDataService.pokedex.subscribe((pokedex: Pokedex) => {
+    this.pokedexDoc.valueChanges().subscribe((pokedex: Pokedex) => {
       const newUser = JSON.parse(JSON.stringify(Array(Object.values(pokedex).length + 1).fill(this.emptyPokemon)));
-      this.newUserDoc.update(Object.assign({}, newUser));
+      this.emptyUserDoc.set(Object.assign({}, newUser));
     })
   };
 
   public createRegionList(): void {
     let id = 1;
-    const regions = this.availableRegions.map(region => {
+    const regions: RegionsDoc = REGIONS_ARRAY.map(region => {
       return {
         id: id++,
         name: region
       }
     })
-    this.regionsDoc.update(Object.assign({}, regions));
+    this.regionsDoc.set(Object.assign({}, regions));
   }
 
   public createPokedex(): Promise<Pokedex> {
