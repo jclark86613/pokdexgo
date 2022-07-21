@@ -17,7 +17,7 @@
                 <mat-error *ngIf="authError">{{authError}}</mat-error>
                 <div class="buttons" fxLayout="row" fxLayoutGap="8px">
                     <button fxFlex="50" mat-raised-button color="primary" routerLink="/register">REGISTER</button>
-                    <button fxFlex="50" mat-raised-button color="accent" (click)="login(form.value)">LOGIN</button>
+                    <button fxFlex="50" mat-raised-button color="accent" (click)="login(form)">LOGIN</button>
                 </div>
             </form>
         </mat-card-content>

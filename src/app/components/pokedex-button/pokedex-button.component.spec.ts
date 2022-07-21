@@ -5,8 +5,8 @@ import { MatButtonHarness} from '@angular/material/button/testing';
 import { PokedexButtonComponent } from './pokedex-button.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { ButtonName } from './pokedex-button.component';
-import { take } from 'rxjs/operators';
+// import { take } from 'rxjs/operators';
+import { ButtonName } from './pokedex-button.interfaces';
 
 describe('PokedexButtonComponent', () => {
   let component: PokedexButtonComponent;
@@ -98,7 +98,7 @@ describe('PokedexButtonComponent', () => {
 
             // get button
             const firstButton = await loader.getHarness(MatButtonHarness);
-            component.onClick.pipe(take(1)).subscribe((output: boolean) => {
+            component.onClick.subscribe((output: boolean) => {
               expect(output).not.toBe(value);
             });
             await firstButton.click();

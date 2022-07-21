@@ -2,6 +2,7 @@
   "name": "pokdexgo",
   "version": "0.0.0",
   "scripts": {
+    "blitz": "git clean -fxd && npm i",
     "ng": "ng",
     "start": "npm i && ng serve",
     "build": "ng build",

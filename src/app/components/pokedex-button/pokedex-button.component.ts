@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
-export type ButtonName = 'normal' | 'shiny' | 'perfect' | 'threestar' | 'shadow' | 'purifed';
+import { ButtonName } from './pokedex-button.interfaces';
 
 @Component({
   selector: 'app-pokedex-button',
@@ -9,7 +8,7 @@ export type ButtonName = 'normal' | 'shiny' | 'perfect' | 'threestar' | 'shadow'
 })
 export class PokedexButtonComponent {
 
-  @Input() name: ButtonName;
+  @Input() name: string;
   @Input() disabled: boolean = false;
   @Input() value: boolean = false;
 
