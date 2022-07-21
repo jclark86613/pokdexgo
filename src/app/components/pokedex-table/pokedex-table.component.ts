@@ -1,9 +1,9 @@
-
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
-import { take } from 'rxjs/operators';
+
+type StandardForm = 'normal' | 'threestar' | 'perfect' | 'shiny' | 'lucky' | 'shadow' | 'purified';
 
 @Component({
   selector: 'app-pokedex-table',
@@ -24,7 +24,7 @@ export class PokedexTableComponent implements OnInit {
 
   public tableData;
   public loading: boolean = true;
-  private checklist: string[] = ['normal', 'shiny', 'lucky', 'perfect', 'threestar', 'shadow', 'purified'];
+  private checklist: StandardForm[] = ['normal', 'threestar', 'perfect', 'shiny', 'lucky', 'shadow', 'purified'];
   public displayedColumns: string[] = ['id', 'image', 'name', ...this.checklist];
 
   private userPokedex: UserPokedex;
@@ -38,6 +38,7 @@ export class PokedexTableComponent implements OnInit {
   private _searchFilter: string;
   private _regionFilter: number;
   private _init: boolean = true;
+  private _saving: boolean = true;
 
   constructor(private pokemonDataService: PokemonDataService) {}
 
@@ -46,6 +47,7 @@ export class PokedexTableComponent implements OnInit {
     combineLatest([api.pokedex, api.userPokedex]).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
       this.userPokedex = userPokedex;
       this.pokedex = pokedex;
+      this._saving = false;
 
       if (this._init) {
         this.resetPage();
@@ -55,7 +57,7 @@ export class PokedexTableComponent implements OnInit {
     });
   }
 
-  public sortColumn(value: string): void {
+  public sortColumn(value: StandardForm): void {
     if (this.sortedColumn !== value) {
       this.sortedColumn = value;
       this.orderAsending = true;
@@ -82,16 +84,34 @@ export class PokedexTableComponent implements OnInit {
     }
   }
 
-  public updateEntry(id:string, value: string) {
+  public updateEntry(id:string, value: StandardForm, forced: boolean) {
+    if (this._saving) { return;}
     const pokemon = this.userPokedex[id];
     if (pokemon) {
-      pokemon[value] = !pokemon[value];
+      pokemon[value] = (forced === undefined) ? !pokemon[value] : forced;
+    }
+    if (pokemon[value]) {
+      this.cascadeUpdates(id, value);
     }
     clearTimeout(this.updateTimeout);
 
     this.updateTimeout = setTimeout( () => {
+      this._saving = true;
       this.pokemonDataService.latestUserPokedex = Object.assign({},this.userPokedex);
-    }, 1000);
+    }, 10000);
+  }
+
+  private cascadeUpdates(id:string, value: StandardForm): void {
+      switch (value) {
+        case 'perfect':
+          this.updateEntry(id, 'threestar', true);
+        case 'threestar':
+        case 'shiny':
+        case 'lucky':
+        case 'shadow':
+        case 'purified':
+          this.updateEntry(id, 'normal', true);
+      }
   }
 
   private resetPage(): void {
