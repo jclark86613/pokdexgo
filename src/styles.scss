@@ -28,3 +28,7 @@ body {
     border-radius: 10px;
     border: 3px double #424242;
 }
+
+*::-webkit-scrollbar-corner {
+    background: #424242;
+  }

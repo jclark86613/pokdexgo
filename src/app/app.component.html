@@ -1,6 +1,6 @@
 <div class="page" fxLayout="column">
-    <app-navbar fxFlex="64px"></app-navbar>
-    <div fxFlex="calc(100% - 64px)" class="body">
+    <app-navbar fxFlex="56px" fxFlex.gt-xs="64px"></app-navbar>
+    <div fxFlex="calc(100% - 56px)" fxFlex.gt-xs="calc(100% - 64px)" class="body">
         <router-outlet></router-outlet>
     </div>
 </div>
