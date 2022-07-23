@@ -5,7 +5,6 @@ import { MatButtonHarness} from '@angular/material/button/testing';
 import { PokedexButtonComponent } from './pokedex-button.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-// import { take } from 'rxjs/operators';
 import { ButtonName } from './pokedex-button.interfaces';
 
 describe('PokedexButtonComponent', () => {

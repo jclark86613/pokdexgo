@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ButtonName } from './pokedex-button.interfaces';
 
 @Component({
   selector: 'app-pokedex-button',

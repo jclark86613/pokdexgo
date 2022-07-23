@@ -9,8 +9,7 @@ export enum REGIONS_ENUM {
     UNOVA = 'unova',
     KALOS = 'kalos',
     ALOLA = 'alola',
-    GALAR = 'galar',
-    TEST = 'test'
+    GALAR = 'galar'
 }
 export const REGIONS_ARRAY = <const> [...Object.values(REGIONS_ENUM)];
 export type Region = typeof REGIONS_ARRAY[number];
