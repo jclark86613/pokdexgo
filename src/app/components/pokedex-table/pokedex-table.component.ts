@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { combineLatest } from 'rxjs';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, STANDARD_POKEMON_FORMS_EMUN, StdPokemonForm, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
+import { PokedexTableService } from './pokedex-table.service';
+import { Filter, Filters } from './pokedex-table.types';
 
 @Component({
   selector: 'app-pokedex-table',
@@ -11,40 +13,35 @@ import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, STANDARD_POKEMON_FORMS_EMUN, Std
 export class PokedexTableComponent implements OnInit {
   @ViewChild('scrollContainer') scrollContainer:ElementRef;
 
-  @Input() set region(region: number) {
-    this._regionFilter = region;
-    this.resetPage();
-  };
-  @Input() set search(search: string) {
-    this._searchFilter = search;
+  @Input() set filters(filters: Filter[]) {
+    this._filters = filters;
     this.resetPage();
   };
 
-  public tableData;
+  public checklist: StdPokemonForm[] = [...STANDARD_POKEMON_FORMS_ARRAY]
+  public displayedColumns: string[] = ['id', 'image', 'name', ...STANDARD_POKEMON_FORMS_ARRAY];
   public loading: boolean = true;
-  private checklist: StdPokemonForm[] = [...STANDARD_POKEMON_FORMS_ARRAY];
-  public displayedColumns: string[] = ['id', 'image', 'name', ...this.checklist];
-
-  private userPokedex: UserPokedex;
-  private pokedex: Pokemon[];
-  private filtedPokedex: Pokemon[];
-  private page: number = 0;
-  private perPage: number = 50;
-  private updateTimeout: ReturnType<typeof setTimeout>;
-  private orderAsending: boolean = false;
-  private sortedColumn: string = 'id';
-  private _searchFilter: string;
-  private _regionFilter: number;
+  public tableData: Pokemon[];
+  public userPokedex: UserPokedex;
+  public orderAsending: boolean = true;
+  public sortedColumn: string = 'id';
+  
+  private _filters: Filters;
+  private _filtedPokedex: Pokemon[];
   private _init: boolean = true;
+  private _page: number = 0;
+  private _perPage: number = 50;
+  private _pokedex: Pokemon[];
   private _saving: boolean = true;
+  private _updateTimeout: ReturnType<typeof setTimeout>;
 
-  constructor(private pokemonDataService: PokemonDataService) {}
+  constructor(private pokemonDataService: PokemonDataService, private pokedexTableService: PokedexTableService) {}
 
   ngOnInit(): void {
     const api: PokemonDataService = this.pokemonDataService;
     combineLatest([api.pokedex, api.userPokedex]).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
       this.userPokedex = userPokedex;
-      this.pokedex = pokedex;
+      this._pokedex = pokedex;
       this._saving = false;
 
       if (this._init) {
@@ -75,10 +72,10 @@ export class PokedexTableComponent implements OnInit {
     if (!this.tableData) {
       this.resetPage();
     } else {
-      this.page++;
-      const start = this.page * this.perPage;
-      const end = start + this.perPage;
-      this.tableData = this.tableData.concat(this.filtedPokedex.slice(start, end));
+      this._page++;
+      const start = this._page * this._perPage;
+      const end = start + this._perPage;
+      this.tableData = this.tableData.concat(this._filtedPokedex.slice(start, end));
     }
   }
 
@@ -91,9 +88,9 @@ export class PokedexTableComponent implements OnInit {
     if (pokemon[value]) {
       this.cascadeUpdates(id, value);
     }
-    clearTimeout(this.updateTimeout);
+    clearTimeout(this._updateTimeout);
 
-    this.updateTimeout = setTimeout( () => {
+    this._updateTimeout = setTimeout( () => {
       this._saving = true;
       this.pokemonDataService.latestUserPokedex = Object.assign({},this.userPokedex);
     }, 10000);
@@ -113,37 +110,23 @@ export class PokedexTableComponent implements OnInit {
   }
 
   private resetPage(): void {
-    if(!this.pokedex) {
+    if(!this._pokedex) {
       return;
     }
-    this.page = 0;
-    const start = this.page * this.perPage;
-    const end = start + this.perPage;
+    this._page = 0;
+    const start = this._page * this._perPage;
+    const end = start + this._perPage;
 
     // filtered list used for displace
-    this.filtedPokedex = this.pokedex;
-
-    this.filtedPokedex = this.filtedPokedex
-      .filter((pokemon: Pokemon) => {
-        if (!this._regionFilter) {
-          return true;
-        }
-        return this._regionFilter === parseInt(pokemon.generation_number,10);
-      })
-      .filter((pokemon: Pokemon) => {
-        if (!this._searchFilter) {
-          return true;
-        }
-        return pokemon.name.toLowerCase().includes(this._searchFilter);
-      });
-    this.tableData = this.filtedPokedex.slice(start,end);
+    this._filtedPokedex = this.pokedexTableService.filter(this._pokedex, this._filters);
+    this.tableData = this._filtedPokedex.slice(start,end);
     if(this.scrollContainer) {
       this.scrollContainer.nativeElement.scrollTop = 0;
     }
   }
 
   private sortByIdentifier(value: string): void {
-    this.pokedex.sort((a:Pokemon, b: Pokemon) => {
+    this._pokedex.sort((a:Pokemon, b: Pokemon) => {
       let output = 0;
       switch(true) {
         case a[value] > b[value]:
@@ -161,7 +144,7 @@ export class PokedexTableComponent implements OnInit {
   }
 
   private sortByChecklist(value: string): void {
-    this.pokedex.sort((a:Pokemon, b: Pokemon) => {
+    this._pokedex.sort((a:Pokemon, b: Pokemon) => {
       let output = 0;
       const usera = this.userPokedex[a.id][value] ? 1 : -1;
       const userb = this.userPokedex[b.id][value] ? 1 : -1;

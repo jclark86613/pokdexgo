@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Regions } from 'src/app/services/pokemon-data/pokemon-data.types';
+import { Filter, FILTERS, Filters } from '../pokedex-table/pokedex-table.types';
 
 @Component({
   selector: 'app-pokedex-filters',
@@ -8,9 +9,12 @@ import { Regions } from 'src/app/services/pokemon-data/pokemon-data.types';
   styleUrls: ['./pokedex-filters.component.scss']
 })
 export class PokedexFiltersComponent{
+  @Output() filters: EventEmitter<Filters> = new EventEmitter<Filters>();
+  
   public regionFilter: Regions = [];
-  @Output() search: EventEmitter<string> = new EventEmitter<string>();
-  @Output() region: EventEmitter<number> = new EventEmitter<number>();
+  
+  private _regionsFilters: Filter;
+  private _searchFilters: Filters = [];
 
   constructor(private pokemonDataService: PokemonDataService) {
     this.pokemonDataService.regionsList.subscribe((regions) =>{
@@ -19,10 +23,49 @@ export class PokedexFiltersComponent{
   }
 
   public setRegionFilter(event): void {
-    this.region.next(event.value);
+    this._regionsFilters = {
+      by: FILTERS.GENERATION_NUMBER,
+      values: [event.value]
+    };
+    this._emit();
   }
 
   public setSearchFilter(event): void {
-    this.search.next(event.target.value.toLowerCase());
+    const searches = event.target.value.trim().replace(/  +/g, ' ').split(/[ ,]+/);
+    const byId = {
+      by: FILTERS.ID,
+      values: []
+    };
+    const byName = {
+      by: FILTERS.NAME,
+      values: []
+    };
+
+    for ( let search of searches ) {
+      let isNumber = parseInt(search,10);
+      if (search && isNaN(isNumber)) {
+        byName.values.push(search);
+      } else if (isNumber) {
+        byId.values.push(isNumber);
+      }
+    }
+
+    this._searchFilters = [];
+    if (byId.values.length) {
+      this._searchFilters.push(byId);
+    }
+    if (byName.values.length) {
+      this._searchFilters.push(byName);
+    }
+    
+    this._emit();
+  }
+
+  private _emit(): void {
+    let emit = [...this._searchFilters];
+    if (this._regionsFilters) {
+      emit.unshift(this._regionsFilters)
+    }
+    this.filters.emit([...emit]);
   }
 }
