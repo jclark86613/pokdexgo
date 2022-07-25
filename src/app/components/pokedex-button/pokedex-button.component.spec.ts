@@ -6,6 +6,7 @@ import { PokedexButtonComponent } from './pokedex-button.component';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ButtonName } from './pokedex-button.interfaces';
+import { MaterialModule } from 'src/app/material.module';
 
 describe('PokedexButtonComponent', () => {
   let component: PokedexButtonComponent;
@@ -16,7 +17,8 @@ describe('PokedexButtonComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ PokedexButtonComponent ],
       imports: [
-        MatIconTestingModule
+        MatIconTestingModule,
+        MaterialModule
       ]
     })
     .compileComponents();
@@ -38,7 +40,7 @@ describe('PokedexButtonComponent', () => {
   for (let name of names) {
     for (let value of values) {
       for (let disable of disabled) {
-        describe(`Test button varients: name=${name} value=${value} disable=${disable}`, function () {
+        describe(`Test button varients: name="${name}" value="${value}" disable="${disable}"`, function () {
           const icon = value ? 'check' : 'close';
           const text = (disable ? 'unavailable' : name).toUpperCase();
 
