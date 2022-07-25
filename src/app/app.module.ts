@@ -10,29 +10,21 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
 import { SsoLoginComponent } from './components/sso-login/sso-login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from '@angular/fire/compat';
-import { MatButtonModule } from '@angular/material/button';
 import { PokedexTableComponent } from './components/pokedex-table/pokedex-table.component';
-import { MatTableModule } from '@angular/material/table';
 import { RegisterComponent } from './pages/register/register.component';
 import { PokedexButtonComponent } from './components/pokedex-button/pokedex-button.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { PokedexFiltersComponent } from './components/pokedex-filters/pokedex-filters.component';
-import { MatSelectModule } from '@angular/material/select';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { PokedexGenerateDataService } from './services/pokedex-generate-data/pokedex-generate-data.service';
 import { AuthService } from './services/auth/auth.service';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -53,21 +45,13 @@ import { AuthService } from './services/auth/auth.service';
     AppRoutingModule,
     FontAwesomeModule,
     BrowserAnimationsModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatToolbarModule,
     FlexLayoutModule,
-    MatCardModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatTableModule,
     InfiniteScrollModule,
-    MatSelectModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MaterialModule
   ],
   providers: [
     AuthService,
