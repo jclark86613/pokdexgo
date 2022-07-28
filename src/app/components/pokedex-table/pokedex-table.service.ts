@@ -1,14 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Pokedex, Pokemon } from 'src/app/services/pokemon-data/pokemon-data.types';
+import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
+import { Pokemon, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
 import { FILTERS, Filters } from './pokedex-table.types';
+
+import { combineLatest, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokedexTableService {
 
-  constructor() { }
+  public userPokedex$: Observable<UserPokedex>;
+  public pokedex$: Observable<Pokemon[]>;
 
+  constructor(private pokemonDataService: PokemonDataService) {
+    const api: PokemonDataService = this.pokemonDataService;
+    this.userPokedex$ = api.userPokedex;
+    this.pokedex$ = api.pokedex;
+  }
+
+  // POST USERS LATEST POKEDEX UPDATES
+  public set latestUserPokedex(pokedex: UserPokedex) {
+    this.pokemonDataService.latestUserPokedex = pokedex;
+  }
   public filter(pokedex: Pokemon[], filters: Filters): Pokemon[] {
     if(!filters.length) {
       return pokedex;

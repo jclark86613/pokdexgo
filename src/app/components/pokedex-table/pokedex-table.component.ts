@@ -1,6 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { combineLatest } from 'rxjs';
-import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
 import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, STANDARD_POKEMON_FORMS_EMUN, StdPokemonForm, UserPokedex } from 'src/app/services/pokemon-data/pokemon-data.types';
 import { PokedexTableService } from './pokedex-table.service';
 import { Filter, Filters } from './pokedex-table.types';
@@ -22,7 +21,6 @@ export class PokedexTableComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'image', 'name', ...STANDARD_POKEMON_FORMS_ARRAY];
   public loading: boolean = true;
   public tableData: Pokemon[];
-  public userPokedex: UserPokedex;
   public orderAsending: boolean = true;
   public sortedColumn: string = 'id';
   
@@ -31,23 +29,25 @@ export class PokedexTableComponent implements OnInit {
   private _init: boolean = true;
   private _page: number = 0;
   private _perPage: number = 50;
-  private _pokedex: Pokemon[];
   private _saving: boolean = true;
   private _updateTimeout: ReturnType<typeof setTimeout>;
 
-  constructor(private pokemonDataService: PokemonDataService, private pokedexTableService: PokedexTableService) {}
+  public userPokedex: UserPokedex;
+  private _pokedex: Pokemon[];
+
+  constructor(private pokedexTableService: PokedexTableService) {}
 
   ngOnInit(): void {
-    const api: PokemonDataService = this.pokemonDataService;
-    combineLatest([api.pokedex, api.userPokedex]).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
+    const service: PokedexTableService = this.pokedexTableService;
+    combineLatest([service.pokedex$, service.userPokedex$]).subscribe(([pokedex, userPokedex]: [Pokemon[], UserPokedex]) => {
       this.userPokedex = userPokedex;
       this._pokedex = pokedex;
       this._saving = false;
 
       if (this._init) {
-        this.resetPage();
         this._init = false;
         this.loading = false;
+        this.resetPage();
       }
     });
   }
@@ -80,7 +80,7 @@ export class PokedexTableComponent implements OnInit {
   }
 
   public updateEntry(id:string, value: StdPokemonForm, forced: boolean) {
-    if (this._saving) { return;}
+    if (this._saving) { return; }
     const pokemon = this.userPokedex[id];
     if (pokemon) {
       pokemon[value] = (forced === undefined) ? !pokemon[value] : forced;
@@ -92,7 +92,7 @@ export class PokedexTableComponent implements OnInit {
 
     this._updateTimeout = setTimeout( () => {
       this._saving = true;
-      this.pokemonDataService.latestUserPokedex = Object.assign({},this.userPokedex);
+      this.pokedexTableService.latestUserPokedex = Object.assign({},this.userPokedex);
     }, 10000);
   }
 
