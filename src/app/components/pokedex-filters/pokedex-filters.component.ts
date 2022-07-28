@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { PokemonDataService } from 'src/app/services/pokemon-data/pokemon-data.service';
-import { Regions } from 'src/app/services/pokemon-data/pokemon-data.types';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { PokedexDataService } from 'src/app/services/pokedex-data/pokedex-data.service';
+import { Regions } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { Filter, FILTERS, Filters } from '../pokedex-table/pokedex-table.types';
 
 @Component({
@@ -16,8 +16,8 @@ export class PokedexFiltersComponent{
   private _regionsFilters: Filter;
   private _searchFilters: Filters = [];
 
-  constructor(private pokemonDataService: PokemonDataService) {
-    this.pokemonDataService.regionsList.subscribe((regions) =>{
+  constructor(private pokedexDataService: PokedexDataService) {
+    this.pokedexDataService.regionsList.subscribe((regions) =>{
       this.regionFilter = regions;
     })
   }

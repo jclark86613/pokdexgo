@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { staticFiles } from '../pokemon-data/pokemon-data.consts';
-import { EMPTY_POKEMON, Pokedex, RegionsDoc, REGIONS_ARRAY, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonFormsDoc, UserPokedex, UserPokemon } from '../pokemon-data/pokemon-data.types';
+import { staticFiles } from '../pokedex-data/pokedex-data.consts';
+import { EMPTY_POKEMON, Pokedex, RegionsDoc, REGIONS_ARRAY, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonFormsDoc, UserPokedex, UserPokemon } from '../pokedex-data/pokedex-data.types';
 
 @Injectable({
   providedIn: 'root'
