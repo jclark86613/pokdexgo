@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Pokedex, Pokemon, Regions, UserPokedex } from './pokemon-data.types';
+import { Pokedex, Pokemon, Regions, UserPokedex } from './pokedex-data.types';
 import { AuthService } from '../auth/auth.service';
 import { User } from 'firebase/auth';
-import { staticFiles } from './pokemon-data.consts';
+import { staticFiles } from './pokedex-data.consts';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PokemonDataService {
+export class PokedexDataService {
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
   private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
   private stdFormsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.STD_FORMS_DOC);
