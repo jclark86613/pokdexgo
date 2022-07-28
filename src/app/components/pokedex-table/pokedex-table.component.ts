@@ -30,10 +30,9 @@ export class PokedexTableComponent implements OnInit {
   private _init: boolean = true;
   private _page: number = 0;
   private _perPage: number = 50;
+  private _pokedex: Pokemon[];
   private _saving: boolean = true;
   private _updateTimeout: ReturnType<typeof setTimeout>;
-
-  private _pokedex: Pokemon[];
 
   constructor(private pokedexTableService: PokedexTableService) {}
 
