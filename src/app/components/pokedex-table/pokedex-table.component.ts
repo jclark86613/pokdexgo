@@ -21,6 +21,7 @@ export class PokedexTableComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'image', 'name', ...STANDARD_POKEMON_FORMS_ARRAY];
   public loading: boolean = true;
   public tableData: Pokemon[];
+  public userPokedex: UserPokedex;
   public orderAsending: boolean = true;
   public sortedColumn: string = 'id';
   
@@ -32,7 +33,6 @@ export class PokedexTableComponent implements OnInit {
   private _saving: boolean = true;
   private _updateTimeout: ReturnType<typeof setTimeout>;
 
-  public userPokedex: UserPokedex;
   private _pokedex: Pokemon[];
 
   constructor(private pokedexTableService: PokedexTableService) {}
