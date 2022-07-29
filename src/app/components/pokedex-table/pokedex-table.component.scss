@@ -1,12 +1,10 @@
-:host {
-    border-radius: 0.5rem;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.mat-card {
+    height: 96%;
+}
 
+:host {
+    overflow: hidden;
+    height: 100%;
     .container {
         overflow-y: auto;
         height: 100%;
@@ -39,7 +37,6 @@
             .sticky {
                 position: sticky;
                 top:0;
-                background-color: #424242;
                 z-index: 1;
             }
         }
