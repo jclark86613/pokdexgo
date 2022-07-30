@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { PokedexDataService } from 'src/app/services/pokedex-data/pokedex-data.service';
-import { Regions } from 'src/app/services/pokedex-data/pokedex-data.types';
+import { Regions, StdPokemonForms } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { Filter, FILTERS, Filters } from '../pokedex-table/pokedex-table.types';
 
 @Component({
@@ -12,14 +12,24 @@ export class PokedexFiltersComponent{
   @Output() filters: EventEmitter<Filters> = new EventEmitter<Filters>();
   
   public regionFilter: Regions = [];
+  public stdFormsFilter: StdPokemonForms = [];
   
   private _regionsFilters: Filter;
   private _searchFilters: Filters = [];
 
   constructor(private pokedexDataService: PokedexDataService) {
-    this.pokedexDataService.regionsList.subscribe((regions) =>{
+    this.pokedexDataService.regionsList.subscribe((regions) => {
+      console.log({regions})
       this.regionFilter = regions;
     })
+    this.pokedexDataService.stdFormsList.subscribe((stdForms) => {
+      console.log({stdForms})
+      this.stdFormsFilter = stdForms;
+    })
+  }
+
+  public setFormFilter(event): void {
+    console.log(event)
   }
 
   public setRegionFilter(event): void {

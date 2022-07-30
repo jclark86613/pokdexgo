@@ -12,4 +12,14 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field fxFlex>
+    <mat-label>Form</mat-label>
+    <mat-select (selectionChange)="setFormFilter($event)">
+      <mat-option *ngFor="let stdForm of stdFormsFilter | keyvalue" [value]="stdForm.value.id">
+        {{stdForm.value.name | titlecase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 </mat-card>
