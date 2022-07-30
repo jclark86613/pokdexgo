@@ -18,7 +18,7 @@ export class PokedexTableComponent implements OnInit {
   };
 
   public checklist: StdPokemonForm[] = [...STANDARD_POKEMON_FORMS_ARRAY]
-  public displayedColumns: string[] = ['id', 'image', 'name', ...STANDARD_POKEMON_FORMS_ARRAY];
+  public displayedColumns: string[] = ['id', ...STANDARD_POKEMON_FORMS_ARRAY];
   public loading: boolean = true;
   public tableData: Pokemon[];
   public userPokedex: UserPokedex;

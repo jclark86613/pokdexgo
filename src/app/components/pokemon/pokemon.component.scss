@@ -1,0 +1,16 @@
+:host {
+    display: block;
+    height: 50px;
+    width: 50px;
+    padding: 0.25rem;
+    position: relative;
+    .id {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgb(57,57,57);
+        background: linear-gradient(0deg, rgb(57, 57, 57) 0%, rgba(57, 57, 57, 0.7) 50%, rgba(57, 57, 57, 0.3) 100%);
+        text-align: center;
+    }
+}
