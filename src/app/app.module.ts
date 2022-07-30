@@ -25,6 +25,7 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { PokedexGenerateDataService } from './services/pokedex-generate-data/pokedex-generate-data.service';
 import { AuthService } from './services/auth/auth.service';
 import { MaterialModule } from './material.module';
+import { PokemonComponent } from './components/pokemon/pokemon.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MaterialModule } from './material.module';
     RegisterComponent,
     PokedexButtonComponent,
     PokedexFiltersComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    PokemonComponent
   ],
   imports: [
     BrowserModule,
