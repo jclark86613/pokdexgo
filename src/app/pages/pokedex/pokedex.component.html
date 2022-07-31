@@ -12,12 +12,12 @@
         fxFlex="auto"
         fxLayout="column">
         <app-pokedex-table
-            *ngIf="view === POKEDEX_VIEW_ENUM.TABLE"
+            *ngIf="layout === POKEDEX_VIEW_ENUM.TABLE"
             [pokedex]="pokedex"
             [userPokedex]="userPokedex"
             [loading]="loading" ></app-pokedex-table>
         <app-pokedex-list
-            *ngIf="view === POKEDEX_VIEW_ENUM.CARD"
+            *ngIf="layout === POKEDEX_VIEW_ENUM.CARD"
             fxLayout="row"
             fxLayoutAlign="center"
             [pokedex]="pokedex"

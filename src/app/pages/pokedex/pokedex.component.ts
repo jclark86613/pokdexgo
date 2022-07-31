@@ -5,6 +5,7 @@ import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonForm, UserPokedex } fr
 import { BasePageComponent } from '../base-page/base-page.component';
 import { PagesService } from '../pages.service';
 import { combineLatest } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 export enum POKEDEX_VIEW_ENUM {
   TABLE = 'table',
@@ -43,7 +44,7 @@ export class PokedexComponent extends BasePageComponent {
 
   public _filters: Filters = [];
   public selectedForm: StdPokemonForm;
-  public view: PokedexView = POKEDEX_VIEW_ENUM.CARD;
+  public layout: PokedexView = POKEDEX_VIEW_ENUM.CARD;
   public POKEDEX_VIEW_ENUM = POKEDEX_VIEW_ENUM;
   public orderAsending: boolean = true;
   public sortedColumn: string = 'id';
@@ -59,7 +60,11 @@ export class PokedexComponent extends BasePageComponent {
   private _filtedPokedex: Pokemon[];
   private _updateTimeout: ReturnType<typeof setTimeout>;
 
-  constructor(protected pagesService: PagesService, private pokedexTableService: PokedexTableService) {
+  constructor(
+    protected pagesService: PagesService,
+    private pokedexTableService: PokedexTableService,
+    private route: ActivatedRoute
+  ) {
     super(pagesService);
   }
   ngOnInit(): void {
@@ -75,6 +80,10 @@ export class PokedexComponent extends BasePageComponent {
         this.resetPage();
       }
     });
+    this.route.params.subscribe(params => {
+      this.layout = params.layout;
+    });
+
   }
   ngAfterViewInit(): void {
     this.resize();
