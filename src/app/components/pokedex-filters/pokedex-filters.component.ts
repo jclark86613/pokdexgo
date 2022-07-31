@@ -15,6 +15,7 @@ export class PokedexFiltersComponent{
   public stdFormsFilter: StdPokemonForms = [];
   
   private _regionsFilters: Filter;
+  private _stdFormsFilter: Filter;
   private _searchFilters: Filters = [];
 
   constructor(private pokedexDataService: PokedexDataService) {
@@ -26,20 +27,24 @@ export class PokedexFiltersComponent{
     })
   }
 
-  public setFormFilter(event): void {
-    
-  }
-
-  public setRegionFilter(event): void {
-    this._regionsFilters = {
-      by: FILTERS.GENERATION_NUMBER,
-      values: [event.value]
+  public setFormFilter(value): void {
+    this._stdFormsFilter = {
+      by: FILTERS.STANDARD_POKEMON_FORMS,
+      values: [value]
     };
     this._emit();
   }
 
-  public setSearchFilter(event): void {
-    const searches = event.target.value.trim().replace(/  +/g, ' ').split(/[ ,]+/);
+  public setRegionFilter(value): void {
+    this._regionsFilters = {
+      by: FILTERS.GENERATION_NUMBER,
+      values: [value]
+    };
+    this._emit();
+  }
+
+  public setSearchFilter(value): void {
+    const searches = value.trim().replace(/  +/g, ' ').split(/[ ,]+/);
     const byId = {
       by: FILTERS.ID,
       values: []
@@ -71,6 +76,9 @@ export class PokedexFiltersComponent{
 
   private _emit(): void {
     let emit = [...this._searchFilters];
+    if (this._stdFormsFilter) {
+      emit.unshift(this._stdFormsFilter)
+    }
     if (this._regionsFilters) {
       emit.unshift(this._regionsFilters)
     }

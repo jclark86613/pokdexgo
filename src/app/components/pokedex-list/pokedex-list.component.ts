@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Pokemon, StdPokemonForm, UserPokedex } from 'src/app/services/pokedex-data/pokedex-data.types';
+import { Filter } from '../pokedex-table/pokedex-table.types';
 
 interface Update {
   id: string,
@@ -16,6 +17,7 @@ export class PokedexListComponent {
   @Input() loading: boolean = true;
   @Input() userPokedex: UserPokedex;
   @Input() size: number;
+  @Input() selectedForm: Filter;
 
   @Output() update: EventEmitter<Update> = new EventEmitter<Update>();
 

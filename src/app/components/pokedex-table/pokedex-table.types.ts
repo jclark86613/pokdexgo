@@ -1,7 +1,8 @@
 export enum FILTERS {
     NAME = 'name',
     ID = 'id',
-    GENERATION_NUMBER = 'generation_number'
+    GENERATION_NUMBER = 'generation_number',
+    STANDARD_POKEMON_FORMS = 'stdForm'
 }
 
 export const FILTERS_ARRAY = <const> [...Object.values(FILTERS)];

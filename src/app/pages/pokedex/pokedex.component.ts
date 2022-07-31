@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { PokedexTableService } from 'src/app/components/pokedex-table/pokedex-table.service';
-import { Filter, Filters } from 'src/app/components/pokedex-table/pokedex-table.types';
+import { Filter, FILTERS, Filters } from 'src/app/components/pokedex-table/pokedex-table.types';
 import { Pokemon, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonForm, UserPokedex } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { BasePageComponent } from '../base-page/base-page.component';
 import { PagesService } from '../pages.service';
@@ -26,7 +26,13 @@ export class PokedexComponent extends BasePageComponent {
   @Input() set filters(filters: Filter[]) {
     this._filters = filters;
     this.resetPage();
+    this.selectForm();
   };
+
+  private selectForm(): void {
+    const val: number = this._filters.find(filter => filter.by === FILTERS.STANDARD_POKEMON_FORMS).values[0] as number;
+    this.selectedForm = STANDARD_POKEMON_FORMS_ARRAY[ val - 1 ];
+  }
 
   public pokedex: Pokemon[];
   public search: string;
@@ -36,6 +42,7 @@ export class PokedexComponent extends BasePageComponent {
   public listSize: number;
 
   public _filters: Filters = [];
+  public selectedForm: StdPokemonForm;
   public view: PokedexView = POKEDEX_VIEW_ENUM.CARD;
   public POKEDEX_VIEW_ENUM = POKEDEX_VIEW_ENUM;
   public orderAsending: boolean = true;

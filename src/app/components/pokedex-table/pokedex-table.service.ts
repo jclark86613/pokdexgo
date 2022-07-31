@@ -23,7 +23,9 @@ export class PokedexTableService {
   public set latestUserPokedex(pokedex: UserPokedex) {
     this.pokedexDataService.latestUserPokedex = pokedex;
   }
-  public filter(pokedex: Pokemon[], filters: Filters): Pokemon[] {
+  public 
+  
+  filter(pokedex: Pokemon[], filters: Filters): Pokemon[] {
     if(!filters.length) {
       return pokedex;
     }
