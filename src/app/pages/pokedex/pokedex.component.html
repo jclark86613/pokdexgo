@@ -22,6 +22,7 @@
             fxLayoutAlign="center"
             [pokedex]="pokedex"
             [userPokedex]="userPokedex"
-            [loading]="loading"></app-pokedex-list>
+            [loading]="loading"
+            (update)="updateEntry($event.id, $event.value)"></app-pokedex-list>
     </div>
 </div>

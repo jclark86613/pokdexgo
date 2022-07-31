@@ -19,40 +19,4 @@ export class PokedexTableComponent {
   public orderAsending: boolean = true;
   public sortedColumn: string = 'id';
   
-  private _saving: boolean = true;
-  private _updateTimeout: ReturnType<typeof setTimeout>;
-
-  constructor(private pokedexTableService: PokedexTableService) {}
-
-
-  public updateEntry(id:string, value: StdPokemonForm, forced: boolean) {
-    if (this._saving) { return; }
-    const pokemon = this.userPokedex[id];
-    if (pokemon) {
-      pokemon[value] = (forced === undefined) ? !pokemon[value] : forced;
-    }
-    if (pokemon[value]) {
-      this.cascadeUpdates(id, value);
-    }
-    clearTimeout(this._updateTimeout);
-
-    this._updateTimeout = setTimeout( () => {
-      this._saving = true;
-      this.pokedexTableService.latestUserPokedex = Object.assign({},this.userPokedex);
-    }, 10000);
-  }
-
-  private cascadeUpdates(id:string, value: StdPokemonForm): void {
-      switch (value) {
-        case 'perfect':
-          this.updateEntry(id, STANDARD_POKEMON_FORMS_EMUN.THREESTAR, true);
-        case 'threestar':
-        case 'shiny':
-        case 'lucky':
-        case 'shadow':
-        case 'purified':
-          this.updateEntry(id, STANDARD_POKEMON_FORMS_EMUN.NORMAL, true);
-      }
-  }
-
 }

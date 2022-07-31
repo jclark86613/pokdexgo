@@ -1,5 +1,5 @@
 <div class="container" [ngStyle]="{'height.px': size}" class="container" fxLayout="row wrap" fxLayoutGap="8px" fxLayoutAlign="space-evenly">
-    <div class="pokemon" *ngFor="let pokemon of pokedex" fxLayout="row" fxLayoutAlign="center">
+    <div class="pokemon" *ngFor="let pokemon of pokedex" fxLayout="row" fxLayoutAlign="center" (click)="onClick(pokemon.id, 'normal')">
         <app-pokemon
             [class]="{notCaught: !userPokedex[pokemon.id].normal}"
             [id]="pokemon.id"

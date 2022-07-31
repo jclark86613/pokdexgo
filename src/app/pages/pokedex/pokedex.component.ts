@@ -50,6 +50,7 @@ export class PokedexComponent extends BasePageComponent {
   private _page: number = 0;
   private _perPage: number = 200;
   private _filtedPokedex: Pokemon[];
+  private _updateTimeout: ReturnType<typeof setTimeout>;
 
   constructor(protected pagesService: PagesService, private pokedexTableService: PokedexTableService) {
     super(pagesService);
@@ -70,6 +71,21 @@ export class PokedexComponent extends BasePageComponent {
   }
   ngAfterViewInit(): void {
     this.resize();
+  }
+
+  public updateEntry(id:string, value: StdPokemonForm) {
+    if (this._saving) { return; }
+    const pokemon = this.userPokedex[id];
+    if (pokemon) {
+      pokemon[value] = !pokemon[value];
+    }
+
+    clearTimeout(this._updateTimeout);
+
+    this._updateTimeout = setTimeout( () => {
+      this._saving = true;
+      this.pokedexTableService.latestUserPokedex = Object.assign({},this.userPokedex);
+    }, 10000);
   }
 
   public resize(): void {
