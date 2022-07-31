@@ -3,4 +3,12 @@
     width: 100%;
     display: block;
     overflow: hidden;
+
+    .scroller {
+        border: 2px solid #7f70c6;
+        border-radius: 10px;
+        background: rgb(57,57,57);
+        background: linear-gradient(180deg, rgba(57,57,57,0.2) 0%, rgba(217,217,217,0.2) 100%);
+        overflow-y: auto;
+    }
 }

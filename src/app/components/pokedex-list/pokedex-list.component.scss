@@ -1,0 +1,13 @@
+.container {
+    .pokemon {
+        margin-bottom: 0.5rem;
+        cursor: pointer;
+        app-pokemon {
+            background: radial-gradient(circle, rgba(127, 112, 198, 0.702) 0%, rgba(217,217,217,0) 70%, rgba(217,217,217,0) 100%);
+            &.notCaught {
+                opacity: 0.4;
+                filter:brightness(0);
+            }
+        }
+    }
+}

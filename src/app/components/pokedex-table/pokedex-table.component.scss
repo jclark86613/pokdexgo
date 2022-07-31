@@ -1,46 +1,38 @@
-.mat-card {
-    height: 96%;
-}
-
 :host {
     overflow: hidden;
     height: 100%;
-    .container {
-        overflow-y: auto;
-        height: 100%;
-        width: fit-content;
-        display: block;
-        table {
-            .mat-header-row {
-                .mat-header-cell {
-                    cursor: pointer;
-                    width: 8.75rem;
-                    &.mat-column-id {
-                        width: 3.5rem;
-                        text-align: center;
-                    }
-                    &.mat-column-image {
-                        width: 3.75rem;
-                        text-align: center;
-                    }
-                    &.mat-column-name {
-                        width: 50px;
-                    }
-                }
-            }
-            .mat-row {
-                .mat-cell {
-                    padding-right: 0.5rem;
-                }
-            }
 
-            .sticky {
-                position: sticky;
-                top:0;
-                z-index: 1;
+    table {
+        .mat-header-row {
+            .mat-header-cell {
+                cursor: pointer;
+                width: 8.75rem;
+                &.mat-column-id {
+                    width: 3.5rem;
+                    text-align: center;
+                }
+                &.mat-column-image {
+                    width: 3.75rem;
+                    text-align: center;
+                }
+                &.mat-column-name {
+                    width: 50px;
+                }
             }
         }
+        .mat-row {
+            .mat-cell {
+                padding-right: 0.5rem;
+            }
+        }
+
+        .sticky {
+            position: sticky;
+            top:0;
+            z-index: 1;
+        }
     }
+
     .loading-container {
         height: 100%;
         width: 100% !important;

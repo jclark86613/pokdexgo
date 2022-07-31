@@ -26,6 +26,7 @@ import { PokedexGenerateDataService } from './services/pokedex-generate-data/pok
 import { AuthService } from './services/auth/auth.service';
 import { MaterialModule } from './material.module';
 import { PokemonComponent } from './components/pokemon/pokemon.component';
+import { PokedexListComponent } from './components/pokedex-list/pokedex-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { PokemonComponent } from './components/pokemon/pokemon.component';
     PokedexButtonComponent,
     PokedexFiltersComponent,
     LoadingSpinnerComponent,
-    PokemonComponent
+    PokemonComponent,
+    PokedexListComponent
   ],
   imports: [
     BrowserModule,

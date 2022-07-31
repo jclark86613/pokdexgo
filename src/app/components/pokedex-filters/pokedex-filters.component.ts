@@ -19,17 +19,15 @@ export class PokedexFiltersComponent{
 
   constructor(private pokedexDataService: PokedexDataService) {
     this.pokedexDataService.regionsList.subscribe((regions) => {
-      console.log({regions})
       this.regionFilter = regions;
     })
     this.pokedexDataService.stdFormsList.subscribe((stdForms) => {
-      console.log({stdForms})
       this.stdFormsFilter = stdForms;
     })
   }
 
   public setFormFilter(event): void {
-    console.log(event)
+    
   }
 
   public setRegionFilter(event): void {

@@ -1,4 +1,27 @@
-<div class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px">
-    <app-pokedex-filters (filters)="filters = $event"></app-pokedex-filters>
-    <app-pokedex-table [filters]="filters"></app-pokedex-table>
+<div #container class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" (window:resize)="resize()">
+    <div #filterBar>
+        <app-pokedex-filters fxFlex (filters)="filters = $event"></app-pokedex-filters>
+    </div>
+    <div #scroller
+        class="scroller"
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="nextPage()"
+        [scrollWindow]="false"
+        fxFlex="auto"
+        fxLayout="column">
+        <app-pokedex-table
+            *ngIf="view === POKEDEX_VIEW_ENUM.TABLE"
+            [pokedex]="pokedex"
+            [userPokedex]="userPokedex"
+            [loading]="loading" ></app-pokedex-table>
+        <app-pokedex-list
+            *ngIf="view === POKEDEX_VIEW_ENUM.CARD"
+            fxLayout="row"
+            fxLayoutAlign="center"
+            [pokedex]="pokedex"
+            [userPokedex]="userPokedex"
+            [loading]="loading"></app-pokedex-list>
+    </div>
 </div>
