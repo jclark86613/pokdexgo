@@ -25,7 +25,7 @@
           [name]="column"
           [disabled]="!element.stdForms[column]"
           [value]="userPokedex ? userPokedex[element.id][column] : false"
-          (onClick)="updateEntry(element.id, column, $event)"></app-pokedex-button>
+          (onClick)="onClick(element.id, column)"></app-pokedex-button>
       </td>
   </ng-container>
 

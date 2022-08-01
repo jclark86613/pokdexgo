@@ -31,8 +31,11 @@ export class PokedexComponent extends BasePageComponent {
   };
 
   private selectForm(): void {
-    const val: number = this._filters.find(filter => filter.by === FILTERS.STANDARD_POKEMON_FORMS).values[0] as number;
-    this.selectedForm = STANDARD_POKEMON_FORMS_ARRAY[ val - 1 ];
+    const formFilter = this._filters.find(filter => filter.by === FILTERS.STANDARD_POKEMON_FORMS);
+    if (formFilter) {
+      const val = formFilter.values[0] as number;
+      this.selectedForm = STANDARD_POKEMON_FORMS_ARRAY[ val - 1 ];
+    }
   }
 
   public pokedex: Pokemon[];

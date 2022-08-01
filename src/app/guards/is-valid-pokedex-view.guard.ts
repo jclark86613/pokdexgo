@@ -12,7 +12,6 @@ export class IsValidPokedexViewGuard implements CanActivate {
   constructor( private router: Router ) {}
   canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): boolean {
     const validRoute = POKEDEX_VIEW_ARRAY.includes(route.params.layout);
-    console.log(validRoute)
     if (!validRoute) {
       this.router.navigate(['pokedex/card']); 
     }

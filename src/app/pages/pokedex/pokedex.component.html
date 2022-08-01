@@ -15,7 +15,8 @@
             *ngIf="layout === POKEDEX_VIEW_ENUM.TABLE"
             [pokedex]="pokedex"
             [userPokedex]="userPokedex"
-            [loading]="loading" ></app-pokedex-table>
+            [loading]="loading"
+            (update)="updateEntry($event.id, $event.value)"></app-pokedex-table>
         <app-pokedex-list
             *ngIf="layout === POKEDEX_VIEW_ENUM.CARD"
             fxLayout="row"
