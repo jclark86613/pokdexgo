@@ -21,6 +21,10 @@ export class PokedexListComponent {
 
   @Output() update: EventEmitter<Update> = new EventEmitter<Update>();
 
+  constructor() {
+    console.log(this.selectedForm)
+  }
+
   public onClick(id, value): void {
     this.update.emit({id,value});
   }

@@ -15,7 +15,7 @@
 
   <mat-form-field>
     <mat-label>Form</mat-label>
-    <mat-select (selectionChange)="setFormFilter($event.value)">
+    <mat-select [value]="stdFormsFilter?.[0]?.id" (selectionChange)="setFormFilter($event.value)">
       <mat-option *ngFor="let stdForm of stdFormsFilter | keyvalue" [value]="stdForm.value.id">
         {{stdForm.value.name | titlecase}}
       </mat-option>

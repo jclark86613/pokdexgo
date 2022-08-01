@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Pokedex, Pokemon, Regions, StdPokemonForms, UserPokedex } from './pokedex-data.types';
+import { Pokedex, Pokemon, Regions, StdPokemonForms, StdPokemonFormsDoc, UserPokedex } from './pokedex-data.types';
 import { AuthService } from '../auth/auth.service';
 import { User } from 'firebase/auth';
 import { staticFiles } from './pokedex-data.consts';
@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 export class PokedexDataService {
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
   private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
-  private stdFormsDoc: AngularFirestoreDocument<StdPokemonForms> = this.afs.doc<StdPokemonForms>(staticFiles.STD_FORMS_DOC);
+  private stdFormsDoc: AngularFirestoreDocument<StdPokemonFormsDoc> = this.afs.doc<StdPokemonFormsDoc>(staticFiles.STD_FORMS_DOC);
   private emptyUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
   private userPokedexDoc: AngularFirestoreDocument<UserPokedex>;
 
@@ -29,7 +29,7 @@ export class PokedexDataService {
   public get regionsList(): Observable<Regions> {
     return this.regionsDoc.valueChanges();
   }
-  public get stdFormsList(): Observable<StdPokemonForms> {
+  public get stdFormsList(): Observable<StdPokemonFormsDoc> {
     return this.stdFormsDoc.valueChanges();
   }
 

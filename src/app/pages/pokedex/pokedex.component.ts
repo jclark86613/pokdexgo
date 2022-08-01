@@ -43,7 +43,7 @@ export class PokedexComponent extends BasePageComponent {
   public listSize: number;
 
   public _filters: Filters = [];
-  public selectedForm: StdPokemonForm;
+  public selectedForm: StdPokemonForm = STANDARD_POKEMON_FORMS_ARRAY[0];
   public layout: PokedexView = POKEDEX_VIEW_ENUM.CARD;
   public POKEDEX_VIEW_ENUM = POKEDEX_VIEW_ENUM;
   public orderAsending: boolean = true;
