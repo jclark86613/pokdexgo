@@ -3,7 +3,8 @@
         margin-bottom: 0.5rem;
         cursor: pointer;
         app-pokemon {
-            background: radial-gradient(circle, rgba(127, 112, 198, 0.702) 0%, rgba(217,217,217,0) 70%, rgba(217,217,217,0) 100%);
+            // background: radial-gradient(circle, rgba(127, 112, 198, 0.702) 0%, rgba(217,217,217,0) 70%, rgba(217,217,217,0) 100%);
+            background: radial-gradient(circle, rgba(239,236,254, 0.702) 0%, rgba(217,217,217,0) 70%, rgba(217,217,217,0) 100%);
             transition: opacity, 0.2s;
             &.notCaught {
                 opacity: 0.4;
