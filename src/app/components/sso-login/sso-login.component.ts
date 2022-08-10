@@ -26,7 +26,7 @@ export class SsoLoginComponent implements OnInit {
     this.authService.login(provider)
     .then((user) => {
       if (!!user) {
-        this.router.navigate(['/dex']);
+        this.router.navigate(['/pokedex']);
       }
     })
   }
