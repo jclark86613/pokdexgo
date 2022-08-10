@@ -43,7 +43,7 @@ export class LoginComponent extends BasePageComponent implements OnInit {
       this.authService.login('email', payload)
         .then((user) => {
           if (!!user) {
-            this.router.navigate(['/dex']);
+            this.router.navigate(['/pokedex']);
           }
         })
         .catch((error) => {
