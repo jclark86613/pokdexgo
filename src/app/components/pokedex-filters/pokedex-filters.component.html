@@ -1,15 +1,25 @@
 <mat-card class="container" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="8px">
-  <mat-form-field  fxFlex>
+  <mat-form-field>
     <mat-label>Search</mat-label>
-    <input style="color: #fff" type="text" matInput placeholder="search by pokemon name" (keyup)="setSearchFilter($event)">
+    <input style="color: #fff" type="text" matInput placeholder="search by pokemon name" (keyup)="setSearchFilter($event.target.value)">
   </mat-form-field>
 
-  <mat-form-field fxFlex>
+  <mat-form-field>
     <mat-label>Region</mat-label>
-    <mat-select (selectionChange)="setRegionFilter($event)">
+    <mat-select (selectionChange)="setRegionFilter($event.value)">
       <mat-option *ngFor="let region of regionFilter | keyvalue" [value]="region.value.id">
         {{region.value.name | titlecase}}
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field *ngIf="showForm">
+    <mat-label>Form</mat-label>
+    <mat-select [value]="stdFormsFilter?.[0]?.id" (selectionChange)="setFormFilter($event.value)">
+      <mat-option *ngFor="let stdForm of stdFormsFilter | keyvalue" [value]="stdForm.value.id">
+        {{stdForm.value.name | titlecase}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 </mat-card>

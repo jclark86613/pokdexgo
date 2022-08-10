@@ -1,4 +1,30 @@
-<div class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px">
-    <app-pokedex-filters (filters)="filters = $event"></app-pokedex-filters>
-    <app-pokedex-table [filters]="filters"></app-pokedex-table>
+<div #container class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" (window:resize)="resize()">
+    <div #filterBar>
+        <app-pokedex-filters fxFlex [showForm]="layout === POKEDEX_VIEW_ENUM.CARD" (filters)="filters = $event"></app-pokedex-filters>
+    </div>
+    <div #scroller
+        class="scroller"
+        [ngClass]="{table: layout === POKEDEX_VIEW_ENUM.TABLE}"
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="nextPage()"
+        [scrollWindow]="false"
+        fxLayout="column">
+        <app-pokedex-table
+            *ngIf="layout === POKEDEX_VIEW_ENUM.TABLE"
+            [pokedex]="pokedex"
+            [userPokedex]="userPokedex"
+            [loading]="loading"
+            (update)="updateEntry($event.id, $event.value)"></app-pokedex-table>
+        <app-pokedex-list
+            *ngIf="layout === POKEDEX_VIEW_ENUM.CARD"
+            fxLayout="row"
+            fxLayoutAlign="center"
+            [pokedex]="pokedex"
+            [userPokedex]="userPokedex"
+            [loading]="loading"
+            [selectedForm]="selectedForm"
+            (update)="updateEntry($event.id, $event.value)"></app-pokedex-list>
+    </div>
 </div>

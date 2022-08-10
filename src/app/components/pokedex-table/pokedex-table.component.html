@@ -1,60 +1,49 @@
-<mat-card>
-  <div class="container"
-    *ngIf="!loading else loadingState"
-    #scrollContainer
-    infiniteScroll
-    [infiniteScrollDistance]="1"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="nextPage()"
-    [scrollWindow]="false">
-      <table mat-table [dataSource]="tableData">
+<table *ngIf="!loading else loadingState" mat-table [dataSource]="pokedex">
 
-        <!-- identifier -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef (click)="sortColumn('id')">
-            <div fxLayout="row" fxLayoutAlign="center center">
-              #
-              <mat-icon *ngIf="sortedColumn === 'id'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-            </div>
-          </th>
-          <td mat-cell *matCellDef="let element" class="name">
-            <app-pokemon [id]="element.id"></app-pokemon>
-          </td>
-        </ng-container>
+  <!-- identifier -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef (click)="sortColumn('id')">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        #
+        <mat-icon *ngIf="sortedColumn === 'id'">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+      </div>
+    </th>
+    <td mat-cell *matCellDef="let element" class="name">
+      <app-pokemon [id]="element.id" size="small"></app-pokemon>
+    </td>
+  </ng-container>
 
-        <!-- checklist -->
-        <ng-container *ngFor="let column of checklist" matColumnDef="{{column}}">
-          <th mat-header-cell *matHeaderCellDef (click)="sortColumn(column)">
-            <div fxLayout="row" fxLayoutAlign="center center">
-              {{column|titlecase}}
-              <mat-icon *ngIf="sortedColumn === column">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
-            </div>
-            <td mat-cell *matCellDef="let element">
-              <app-pokedex-button
-                [name]="column"
-                [disabled]="!element.stdForms[column]"
-                [value]="userPokedex ? userPokedex[element.id][column] : false"
-                (onClick)="updateEntry(element.id, column, $event)"></app-pokedex-button>
-            </td>
-        </ng-container>
+  <!-- checklist -->
+  <ng-container *ngFor="let column of checklist" matColumnDef="{{column}}">
+    <th mat-header-cell *matHeaderCellDef (click)="sortColumn(column)">
+      <div fxLayout="row" fxLayoutAlign="center center">
+        {{column|titlecase}}
+        <mat-icon *ngIf="sortedColumn === column">{{orderAsending ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+      </div>
+      <td mat-cell *matCellDef="let element">
+        <app-pokedex-button
+          [name]="column"
+          [disabled]="!element.stdForms[column]"
+          [value]="userPokedex ? userPokedex[element.id][column] : false"
+          (onClick)="onClick(element.id, column)"></app-pokedex-button>
+      </td>
+  </ng-container>
 
-        <tr mat-header-row class="sticky" *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row class="sticky" *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <tr *matNoDataRow>
-          <td class="mat-cell" [attr.colspan]="displayedColumns.length">
-            <div class="empty-state" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
-              <img width="200" height="200" src="https://pngimg.com/uploads/pokeball/pokeball_PNG21.png">
-              <span>No data matching the filter.</span>
-            </div>
-          </td>
-        </tr>
-      </table>
-  </div>
-</mat-card>
+  <tr *matNoDataRow>
+    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+      <div class="empty-state" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="16px">
+        <img width="200" height="200" src="https://pngimg.com/uploads/pokeball/pokeball_PNG21.png">
+        <span>No data matching the filter.</span>
+      </div>
+    </td>
+  </tr>
+</table>
 
 <ng-template #loadingState>
-  <mat-card class="loading-container" fxLayout="columns" fxLayoutAlign="center center">
+  <div class="loading-container" fxLayout="columns" fxLayoutAlign="center center">
     <app-loading-spinner></app-loading-spinner>
-  </mat-card>
+  </div>
 </ng-template>

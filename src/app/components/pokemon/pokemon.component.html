@@ -1,6 +1,12 @@
-<img
-    width="50"
-    height="50"
-    src="{{'assets/dream-world/'+id+'.svg'}}"
-    onerror="this.src='https://pngimg.com/uploads/pokeball/pokeball_PNG21.png'"/>
-<div class="id">{{id}}</div>
+<!-- <img 
+    class="{{size}}"
+    src="{{'assets/'+id+'.png'}}"
+    onerror="this.src='https://pngimg.com/uploads/pokeball/pokeball_PNG21.png'"/> -->
+<!-- <div class="id">{{id}}</div> -->
+<div 
+    class="pokemon {{size}}"
+    [ngStyle]="{
+        'background-image': 'url(assets/pokemon-images/pm'+id+'.icon.png)'
+    }">
+
+</div>
