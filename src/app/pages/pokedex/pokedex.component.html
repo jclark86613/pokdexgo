@@ -1,15 +1,15 @@
 <div #container class="container" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="8px" (window:resize)="resize()">
     <div #filterBar>
-        <app-pokedex-filters fxFlex (filters)="filters = $event"></app-pokedex-filters>
+        <app-pokedex-filters fxFlex [showForm]="layout === POKEDEX_VIEW_ENUM.CARD" (filters)="filters = $event"></app-pokedex-filters>
     </div>
     <div #scroller
         class="scroller"
+        [ngClass]="{table: layout === POKEDEX_VIEW_ENUM.TABLE}"
         infiniteScroll
         [infiniteScrollDistance]="1"
         [infiniteScrollThrottle]="50"
         (scrolled)="nextPage()"
         [scrollWindow]="false"
-        fxFlex="auto"
         fxLayout="column">
         <app-pokedex-table
             *ngIf="layout === POKEDEX_VIEW_ENUM.TABLE"

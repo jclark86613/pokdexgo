@@ -9,5 +9,5 @@ export type Size = 'small' | 'medium' | 'large';
 })
 export class PokemonComponent {
   @Input() id: string;
-  @Input() size: Size = 'small';
+  @Input() size: Size = 'medium';
 }

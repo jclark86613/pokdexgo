@@ -13,7 +13,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="showForm">
     <mat-label>Form</mat-label>
     <mat-select [value]="stdFormsFilter?.[0]?.id" (selectionChange)="setFormFilter($event.value)">
       <mat-option *ngFor="let stdForm of stdFormsFilter | keyvalue" [value]="stdForm.value.id">

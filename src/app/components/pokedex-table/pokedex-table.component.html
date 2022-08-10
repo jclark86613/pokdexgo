@@ -9,7 +9,7 @@
       </div>
     </th>
     <td mat-cell *matCellDef="let element" class="name">
-      <app-pokemon [id]="element.id"></app-pokemon>
+      <app-pokemon [id]="element.id" size="small"></app-pokemon>
     </td>
   </ng-container>
 
@@ -43,7 +43,7 @@
 </table>
 
 <ng-template #loadingState>
-  <mat-card class="loading-container" fxLayout="columns" fxLayoutAlign="center center">
+  <div class="loading-container" fxLayout="columns" fxLayoutAlign="center center">
     <app-loading-spinner></app-loading-spinner>
-  </mat-card>
+  </div>
 </ng-template>

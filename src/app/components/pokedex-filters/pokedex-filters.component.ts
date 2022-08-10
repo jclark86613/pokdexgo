@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PokedexDataService } from 'src/app/services/pokedex-data/pokedex-data.service';
 import { Regions, StdPokemonForms, StdPokemonFormsDoc } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { Filter, FILTERS, Filters } from '../pokedex-table/pokedex-table.types';
@@ -9,6 +9,7 @@ import { Filter, FILTERS, Filters } from '../pokedex-table/pokedex-table.types';
   styleUrls: ['./pokedex-filters.component.scss']
 })
 export class PokedexFiltersComponent {
+  @Input() showForm: boolean = false;
   @Output() filters: EventEmitter<Filters> = new EventEmitter<Filters>();
   
   public regionFilter: Regions = [];
