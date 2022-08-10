@@ -8,7 +8,10 @@
     <mat-label>Region</mat-label>
     <mat-select (selectionChange)="setRegionFilter($event.value)">
       <mat-option *ngFor="let region of regionFilter | keyvalue" [value]="region.value.id">
-        {{region.value.name | titlecase}}
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+          <span>{{region.value.name | titlecase}}</span>
+          <img width="20px" src="/assets/filter-icons/{{region.value.name}}.png">
+        </div>
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -17,7 +20,10 @@
     <mat-label>Form</mat-label>
     <mat-select [value]="stdFormsFilter?.[0]?.id" (selectionChange)="setFormFilter($event.value)">
       <mat-option *ngFor="let stdForm of stdFormsFilter | keyvalue" [value]="stdForm.value.id">
-        {{stdForm.value.name | titlecase}}
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px">
+          <span>{{stdForm.value.name | titlecase}}</span>
+          <img width="20px" src="/assets/filter-icons/{{stdForm.value.name}}.png">
+        </div>
       </mat-option>
     </mat-select>
   </mat-form-field>
