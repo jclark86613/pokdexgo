@@ -6,7 +6,7 @@
 <div 
     class="pokemon {{size}}"
     [ngStyle]="{
-        'background-image': 'url(assets/pokemon-images/pm'+id+'.icon.png)'
+        'background-image': 'url(assets/pokemon-images/pm' + id + (shiny?'.s':'')+'.icon.png)'
     }">
 
 </div>

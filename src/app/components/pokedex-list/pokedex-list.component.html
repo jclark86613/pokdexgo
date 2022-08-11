@@ -3,6 +3,7 @@
         <app-pokemon
             [class]="{notCaught: !userPokedex[pokemon.id][selectedForm]}"
             [id]="pokemon.id"
-            [size]="'medium'"></app-pokemon>
+            [size]="'medium'"
+            [shiny]="selectedForm === STANDARD_POKEMON_FORMS_EMUN.SHINY"></app-pokemon>
     </div>
 </div>
