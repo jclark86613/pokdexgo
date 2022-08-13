@@ -10,4 +10,6 @@ export type Size = 'small' | 'medium' | 'large';
 export class PokemonComponent {
   @Input() id: string;
   @Input() size: Size = 'medium';
+  @Input() shiny: boolean = false;
+  @Input() notCaught: boolean = false;
 }

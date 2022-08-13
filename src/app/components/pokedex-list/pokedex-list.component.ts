@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Pokemon, StdPokemonForm, UserPokedex } from 'src/app/services/pokedex-data/pokedex-data.types';
+import { Pokemon, STANDARD_POKEMON_FORMS_EMUN, StdPokemonForm, UserPokedex } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { Filter } from '../pokedex-table/pokedex-table.types';
 
 interface Update {
@@ -20,6 +20,8 @@ export class PokedexListComponent {
   @Input() selectedForm: Filter;
 
   @Output() update: EventEmitter<Update> = new EventEmitter<Update>();
+
+  public STANDARD_POKEMON_FORMS_EMUN = STANDARD_POKEMON_FORMS_EMUN;
 
   public onClick(id, value): void {
     this.update.emit({id, value});
