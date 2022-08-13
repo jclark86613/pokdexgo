@@ -18,11 +18,17 @@
     .id {
         position: absolute;
         bottom: 0;
-        left: 0;
         right: 0;
-        background: rgb(57,57,57);
-        background: linear-gradient(0deg, rgb(57, 57, 57) 0%, rgba(57, 57, 57, 0.7) 50%, rgba(57, 57, 57, 0.3) 100%);
+        left: 0;
+        font-weight: bold;
         text-align: center;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+    }
+
+    .notCaught {
+        opacity: 0.4;
+        filter:brightness(0);
     }
 }
 

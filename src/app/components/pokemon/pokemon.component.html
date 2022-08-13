@@ -4,9 +4,9 @@
     onerror="this.src='https://pngimg.com/uploads/pokeball/pokeball_PNG21.png'"/> -->
 <!-- <div class="id">{{id}}</div> -->
 <div 
-    class="pokemon {{size}}"
+    class="pokemon {{size}} {{notCaught ? 'notCaught' : ''}}"
     [ngStyle]="{
         'background-image': 'url(assets/pokemon-images/pm' + id + (shiny?'.s':'')+'.icon.png)'
     }">
-
 </div>
+<div class="id">{{id}}</div>
