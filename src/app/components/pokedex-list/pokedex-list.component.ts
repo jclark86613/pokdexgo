@@ -3,7 +3,7 @@ import { Pokemon, STANDARD_POKEMON_FORMS_EMUN, StdPokemonForm, UserPokedex } fro
 import { Filter } from '../pokedex-table/pokedex-table.types';
 
 interface Update {
-  id: string,
+  id: number,
   value: StdPokemonForm
 }
 
@@ -23,7 +23,10 @@ export class PokedexListComponent {
 
   public STANDARD_POKEMON_FORMS_EMUN = STANDARD_POKEMON_FORMS_EMUN;
 
-  public onClick(id, value): void {
-    this.update.emit({id, value});
+  public onClick(id: number, value: StdPokemonForm): void {
+    let pokemon = this.pokedex.find(pokemon => pokemon.id === id);
+    if (pokemon?.stdForms?.[value]) {
+      this.update.emit({id, value});
+    }
   }
 }
