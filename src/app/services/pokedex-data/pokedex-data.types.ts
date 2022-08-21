@@ -56,7 +56,7 @@ export interface UserPokedex {
     [key: string]: UserPokemon;
 }
 export type UserPokemon = {
-    [key in STANDARD_POKEMON_FORMS_EMUN]: Boolean;
+    [key in STANDARD_POKEMON_FORMS_EMUN]: boolean;
 }
 export const EMPTY_POKEMON: UserPokemon = {
     normal: false,
@@ -77,4 +77,10 @@ export interface Pokemon {
     name: string;
     generation_number: string;
     stdForms: StdPokemonForms;
+}
+
+export type PokedexCounts = {
+    all: {
+        [key in STANDARD_POKEMON_FORMS_EMUN]: number;
+    }
 }

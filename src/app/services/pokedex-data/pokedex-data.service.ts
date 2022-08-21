@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { Pokedex, Pokemon, Regions, StdPokemonForms, StdPokemonFormsDoc, UserPokedex } from './pokedex-data.types';
+import { Pokedex, PokedexCounts, Pokemon, Regions, StdPokemonForms, StdPokemonFormsDoc, UserPokedex } from './pokedex-data.types';
 import { AuthService } from '../auth/auth.service';
 import { User } from 'firebase/auth';
 import { staticFiles } from './pokedex-data.consts';
@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class PokedexDataService {
   private pokedexDoc: AngularFirestoreDocument<Pokedex> = this.afs.doc<Pokedex>(staticFiles.POKEDEX_DOC);
+  private pokedexCountsDoc: AngularFirestoreDocument<PokedexCounts> = this.afs.doc<PokedexCounts>(staticFiles.POKEDEX_COUNTS_DOC);
   private regionsDoc: AngularFirestoreDocument<Regions> = this.afs.doc<Regions>(staticFiles.REGIONS_LIST_DOC);
   private stdFormsDoc: AngularFirestoreDocument<StdPokemonFormsDoc> = this.afs.doc<StdPokemonFormsDoc>(staticFiles.STD_FORMS_DOC);
   private emptyUserDoc: AngularFirestoreDocument<UserPokedex> = this.afs.doc<UserPokedex>(staticFiles.EMPTY_USER_DOC);
@@ -40,6 +41,10 @@ export class PokedexDataService {
           return Object.values(pokedex);
         })
       )
+  }
+
+  public get pokedexCounts(): Observable<PokedexCounts> {
+    return this.pokedexCountsDoc.valueChanges();
   }
 
   public get emptyUser(): Observable<UserPokedex> {
