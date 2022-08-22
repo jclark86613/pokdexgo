@@ -23,8 +23,8 @@ export class UserProfileFlyoutComponent {
     })
     this.pokedexDataService.userPokedex.subscribe(userPokedex => {
       for (let pokemon in userPokedex) {
-        for (let count in this.userCounts) {
-          this.userCounts[count] += userPokedex[pokemon][count] ? 1 : 0;
+        for (let count in this.userCounts.all) {
+          this.userCounts.all[count] += userPokedex[pokemon][count] ? 1 : 0;
         }
       }
     })

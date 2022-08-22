@@ -20,9 +20,9 @@
             <div style="width:100%" fxLayout="column">
                 <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
                 <span>{{count.key | titlecase}}</span>
-                <span>{{userCounts[count.key]}}/{{count.value}}</span>
+                <span>{{userCounts.all[count.key]}}/{{count.value}}</span>
                 </div>
-                <mat-progress-bar class="{{count.key}}" mode="determinate" [value]="userCounts[count.key] / count.value * 100"></mat-progress-bar>
+                <mat-progress-bar class="{{count.key}}" mode="determinate" [value]="userCounts.all[count.key] / count.value * 100"></mat-progress-bar>
             </div>
         </mat-list-item>
     </ng-container> 
