@@ -1,6 +1,13 @@
 <mat-toolbar fxLayout="row" color="primary" fxLayoutAlign="space-between center">
   <span>Pokedex Go</span>
-  <button mat-icon-button *ngIf="authService.isAuth" (click)="authService.logout()" aria-label="logout">
-    <mat-icon>logout</mat-icon>
-  </button>
+  <div class="profile" *ngIf="authService.isAuth">
+    <button mat-icon-button aria-label="account circle" [matMenuTriggerFor]="profile">
+      <mat-icon *ngIf="!icon;">account_circle</mat-icon>
+      <img class="icon" src="{{icon}}" *ngIf="icon;">
+    </button>
+  </div>
 </mat-toolbar>
+
+<mat-menu #profile xPosition="after" yPosition="above" overlapTrigger>
+  <app-user-profile-flyout *ngIf="authService.isAuth"></app-user-profile-flyout>
+</mat-menu>

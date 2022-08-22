@@ -1,0 +1,34 @@
+<mat-list dense>
+    <mat-list-item>
+        <div style="margin-bottom: 6px" class="profile" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+            <mat-icon *ngIf="!icon;">account_circle</mat-icon>
+            <img class="icon" src="{{icon}}">
+            <div fxLayout="column">
+                <span>
+                    {{user.displayName}}
+                </span>
+                <span class="opacity">
+                    {{user.email}}
+                </span>
+            </div>
+        </div>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <ng-container *ngIf="PokedexCounts$ | async as counts; else loading">
+        <mat-list-item *ngFor="let count of counts.all | keyvalue">
+            <div style="width:100%" fxLayout="column">
+                <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
+                <span>{{count.key | titlecase}}</span>
+                <span>{{userCounts.all[count.key]}}/{{count.value}}</span>
+                </div>
+                <mat-progress-bar class="{{count.key}}" mode="determinate" [value]="userCounts.all[count.key] / count.value * 100"></mat-progress-bar>
+            </div>
+        </mat-list-item>
+    </ng-container> 
+    <mat-divider></mat-divider>
+    <div style="margin: 6px; margin-bottom: 0">
+        <button style="width: 100%" mat-raised-button color="primary" (click)="authService.logout()">Logout</button>
+    </div>
+</mat-list>
+
+<ng-template #loading>LOADING</ng-template>

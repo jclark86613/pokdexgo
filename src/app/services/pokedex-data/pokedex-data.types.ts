@@ -56,19 +56,21 @@ export interface UserPokedex {
     [key: string]: UserPokemon;
 }
 export type UserPokemon = {
-    [key in STANDARD_POKEMON_FORMS_EMUN]: Boolean;
+    [key in STANDARD_POKEMON_FORMS_EMUN]: boolean;
 }
 export const EMPTY_POKEMON: UserPokemon = {
-    normal: false,
-    shiny: false,
-    perfect: false,
-    lucky: false,
-    threestar: false,
-    shadow: false,
-    purified: false,
+    [STANDARD_POKEMON_FORMS_EMUN.NORMAL]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.SHINY]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.PERFECT]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.LUCKY]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.THREESTAR]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.SHADOW]: false,
+    [STANDARD_POKEMON_FORMS_EMUN.PURIFIED]: false,
 }
 
-
+/*
+* GLOBAL POKEDEX TO LIST ALL POKEMON AND FORM AVAILABILITY
+*/
 export interface Pokedex {
     [key: number]: Pokemon;
 }
@@ -77,4 +79,25 @@ export interface Pokemon {
     name: string;
     generation_number: string;
     stdForms: StdPokemonForms;
+}
+
+/*
+* POKEDEX COUNT of all available forms
+*/
+export type PokedexCounts = {
+    all: {
+        [key in STANDARD_POKEMON_FORMS_EMUN]: number;
+    }
+}
+
+export const EMPTY_POKEDEX_COUNT: PokedexCounts = {
+    all: {
+        [STANDARD_POKEMON_FORMS_EMUN.NORMAL]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.SHINY]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.PERFECT]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.LUCKY]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.THREESTAR]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.SHADOW]: 0,
+        [STANDARD_POKEMON_FORMS_EMUN.PURIFIED]: 0 
+    }
 }

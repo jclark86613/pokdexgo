@@ -1,0 +1,62 @@
+@use '../../styles/colors';
+
+::ng-deep .normal .mat-progress-bar-fill::after {
+    background-color: colors.$lilac;
+}
+::ng-deep .shiny .mat-progress-bar-fill::after {
+    background-color: colors.$yellow;
+}
+::ng-deep .perfect .mat-progress-bar-fill::after {
+    background-color: colors.$pink;
+}
+::ng-deep .threestar .mat-progress-bar-fill::after {
+    background-color: colors.$orange;
+}
+::ng-deep .shadow .mat-progress-bar-fill::after {
+    background-color:colors.$purple;
+}
+::ng-deep .purified .mat-progress-bar-fill::after {
+    background-color: colors.$egg-shell;
+}
+::ng-deep .lucky .mat-progress-bar-fill::after {
+    background-color: colors.$peach;
+}
+
+::ng-deep .normal .mat-progress-bar-buffer {
+    background-color: colors.$lilac;
+    opacity: 0.3;
+}
+::ng-deep .shiny .mat-progress-bar-buffer {
+    background-color: colors.$yellow;
+    opacity: 0.3;
+}
+::ng-deep .perfect .mat-progress-bar-buffer {
+    background-color: colors.$pink;
+    opacity: 0.3;
+}
+::ng-deep .threestar .mat-progress-bar-buffer {
+    background-color: colors.$orange;
+    opacity: 0.3;
+}
+::ng-deep .shadow .mat-progress-bar-buffer {
+    background-color:colors.$purple;
+    opacity: 0.3;
+}
+::ng-deep .purified .mat-progress-bar-buffer {
+    background-color: colors.$egg-shell;
+    opacity: 0.3;
+}
+::ng-deep .lucky .mat-progress-bar-buffer {
+    background-color: colors.$peach;
+    opacity: 0.3;
+}
+
+mat-divider {
+    margin: 0.5rem 0;
+}
+
+.icon {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}

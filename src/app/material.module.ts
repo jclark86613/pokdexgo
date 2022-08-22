@@ -9,9 +9,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import {
+import { MatMenuModule } from '@angular/material/menu';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-} from '@angular/material';
+
 
 const material = [
     MatIconModule,
@@ -23,6 +25,9 @@ const material = [
     MatButtonModule,
     MatTableModule,
     MatCardModule,
+    MatMenuModule,
+    MatListModule,
+    MatProgressBarModule
 ]
 
 @NgModule({

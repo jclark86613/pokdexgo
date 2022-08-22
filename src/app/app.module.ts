@@ -27,6 +27,7 @@ import { AuthService } from './services/auth/auth.service';
 import { MaterialModule } from './material.module';
 import { PokemonComponent } from './components/pokemon/pokemon.component';
 import { PokedexListComponent } from './components/pokedex-list/pokedex-list.component';
+import { UserProfileFlyoutComponent } from './components/user-profile-flyout/user-profile-flyout.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { PokedexListComponent } from './components/pokedex-list/pokedex-list.com
     PokedexFiltersComponent,
     LoadingSpinnerComponent,
     PokemonComponent,
-    PokedexListComponent
+    PokedexListComponent,
+    UserProfileFlyoutComponent
   ],
   imports: [
     BrowserModule,
