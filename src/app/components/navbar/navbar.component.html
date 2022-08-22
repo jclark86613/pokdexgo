@@ -8,6 +8,6 @@
   </div>
 </mat-toolbar>
 
-<mat-menu #profile>
+<mat-menu #profile xPosition="after" yPosition="above" overlapTrigger>
   <app-user-profile-flyout *ngIf="authService.isAuth"></app-user-profile-flyout>
 </mat-menu>
