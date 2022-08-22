@@ -1,39 +1,12 @@
 <mat-toolbar fxLayout="row" color="primary" fxLayoutAlign="space-between center">
   <span>Pokedex Go</span>
   <div class="profile" *ngIf="authService.isAuth">
-    <button mat-icon-button (click)="openProfile()" aria-label="account circle" [matMenuTriggerFor]="profile">
+    <button mat-icon-button aria-label="account circle" [matMenuTriggerFor]="profile">
       <mat-icon>account_circle</mat-icon>
     </button>
-
   </div>
-  <!-- <button mat-icon-button (click)="authService.logout()" aria-label="logout">
-    <mat-icon>logout</mat-icon>
-  </button> -->
 </mat-toolbar>
 
 <mat-menu #profile>
-  <mat-list dense>
-    <ng-container *ngIf="PokedexCounts$ | async as counts; else loading">
-      <mat-list-item *ngFor="let count of counts.all | keyvalue">
-        <div style="width:100%" fxLayout="column">
-          <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
-            <span>{{count.key | titlecase}}</span>
-            <span>{{userCounts[count.key]}}/{{count.value}}</span>
-          </div>
-          <mat-progress-bar class="{{count.key}}" mode="determinate" [value]="userCounts[count.key] / count.value * 100"></mat-progress-bar>
-        </div>
-      </mat-list-item>
-    </ng-container> 
-    <mat-divider></mat-divider>
-    <mat-list-item>
-      <div style="width: 100%" fxLayout="row" fxLayoutGap="8px" fxLayoutAlign="space-between center">
-        <span>Logout</span>
-        <button mat-icon-button (click)="authService.logout()" aria-label="logout">
-          <mat-icon color="primary">logout</mat-icon>
-        </button>
-      </div>
-    </mat-list-item>
-  </mat-list>
+  <app-user-profile-flyout *ngIf="authService.isAuth"></app-user-profile-flyout>
 </mat-menu>
-
-<ng-template #loading>LOADING</ng-template>
