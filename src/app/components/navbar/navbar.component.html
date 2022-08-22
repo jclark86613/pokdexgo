@@ -2,7 +2,8 @@
   <span>Pokedex Go</span>
   <div class="profile" *ngIf="authService.isAuth">
     <button mat-icon-button aria-label="account circle" [matMenuTriggerFor]="profile">
-      <mat-icon>account_circle</mat-icon>
+      <mat-icon *ngIf="!icon;">account_circle</mat-icon>
+      <img style="border-radius: 50%" height="40" width="40" src="{{icon}}" *ngIf="icon;">
     </button>
   </div>
 </mat-toolbar>

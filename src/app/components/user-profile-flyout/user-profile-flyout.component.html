@@ -1,7 +1,9 @@
 <mat-list dense>
     <mat-list-item>
         <div style="margin-bottom: 6px" class="profile" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
-            <img width="32" height="32" src="{{icon}}">
+            <mat-icon *ngIf="!icon;">account_circle</mat-icon>
+            <img style="border-radius: 50%" *ngIf="icon;" width="32" height="32" src="{{icon}}">
+
             <div fxLayout="column">
                 <span>
                     {{user.displayName}}

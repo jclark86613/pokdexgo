@@ -91,6 +91,9 @@ export class PokedexComponent extends BasePageComponent {
   ngAfterViewInit(): void {
     this.resize();
   }
+  ngOnDestroy(): void {
+    clearTimeout(this._updateTimeout);
+  }
 
   public updateEntry(id:string, value: StdPokemonForm) {
     if (this._saving) { return; }
