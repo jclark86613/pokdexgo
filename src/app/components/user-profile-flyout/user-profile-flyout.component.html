@@ -15,15 +15,36 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     <ng-container *ngIf="PokedexCounts$ | async as counts; else loading">
-        <mat-list-item *ngFor="let form of pokedexFormOrder">
-            <div style="width:100%" fxLayout="column">
-                <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
-                    <span>{{form | titlecase}}</span>
-                    <span>{{userCounts.all[form]}}/{{counts.all[form]}}</span>
+        <ng-container *ngFor="let form of pokedexFormOrder">
+
+            <div class="expandable-title {{form}}" [ngClass]="{active: selectedForm === form}">
+                <mat-list-item (click)="selectedForm = (selectedForm !== form) ? form : null">
+                    <div style="width:100%" fxLayout="column">
+                        <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
+                            <span>{{form | uppercase}}</span>
+                            <span>{{userCounts.all[form]}}/{{counts.all[form]}}</span>
+                        </div>
+                        <mat-progress-bar style="height: 6px" class="{{form}}" mode="determinate" [value]="userCounts.all[form] / counts.all[form] * 100"></mat-progress-bar>
+                    </div>
+                </mat-list-item>
+
+                <div class="expandable-content" [ngClass]="{active: selectedForm === form}">
+                    <mat-list-item *ngFor="let region of pokedexRegionOrder">
+                        <div fxLayout="row" style="width: 100%">
+                            <div class="indent"></div>
+                            <div style="width:100%" fxLayout="column">
+                                <div style="width: 100%" fxLayout="row" fxLayoutGap="32px" fxLayoutAlign="space-between center">
+                                    <span>{{region | titlecase}}</span>
+                                    <span>{{userCounts[region][form]}}/{{counts[region][form]}}</span>
+                                </div>
+                                <mat-progress-bar class="{{form}}" mode="determinate" [value]="userCounts[region][form] / counts[region][form] * 100"></mat-progress-bar>
+                            </div>
+                        </div>
+                    </mat-list-item>
                 </div>
-                <mat-progress-bar class="{{form}}" mode="determinate" [value]="userCounts.all[form] / counts.all[form] * 100"></mat-progress-bar>
             </div>
-        </mat-list-item>
+
+        </ng-container>
     </ng-container>
     <mat-divider></mat-divider>
     <div style="margin: 6px; margin-bottom: 0">

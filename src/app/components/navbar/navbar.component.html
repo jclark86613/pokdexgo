@@ -9,5 +9,5 @@
 </mat-toolbar>
 
 <mat-menu #profile xPosition="after" yPosition="above" overlapTrigger>
-  <app-user-profile-flyout *ngIf="authService.isAuth"></app-user-profile-flyout>
+  <app-user-profile-flyout *ngIf="authService.isAuth" (click)="$event.stopPropagation()"></app-user-profile-flyout>
 </mat-menu>

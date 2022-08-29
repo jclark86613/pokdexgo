@@ -1,3 +1,5 @@
+@use '../../styles/colors';
+
 .icon {
     border-radius: 50%;
     width: 32px;
@@ -6,4 +8,46 @@
 
 .opacity {
     opacity: 0.6;
+}
+.indent {
+    width: 20px;
+}
+
+.expandable-title {
+    cursor: pointer;
+    background-color: rgba(255,255,255,0);
+    transition: background-color 0.2s;
+    &.active {
+        background-color: rgba(255,255,255,0.05);
+    }
+    
+    &.normal {
+        background-color: rgba(colors.$lilac,0.05);
+    }
+    &.shiny {
+        background-color: rgba(colors.$yellow,0.05);
+    }
+    &.perfect {
+        background-color: rgba(colors.$pink,0.05);
+    }
+    &.threestar {
+        background-color: rgba(colors.$orange,0.05);
+    }
+    &.shadow {
+        background-color:rgba(colors.$purple,0.05);
+    }
+    &.purified {
+        background-color: rgba(colors.$egg-shell,0.05);
+    }
+    &.lucky {
+        background-color: rgba(colors.$peach,0.05);
+    }
+    .expandable-content {
+        height: 0;
+        overflow: hidden;
+        transition: height 0.2s;
+        &.active {
+            height: 320px;
+        }
+    }
 }
