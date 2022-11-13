@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { staticFiles } from '../pokedex-data/pokedex-data.consts';
-import { EMPTY_POKEDEX_COUNT, EMPTY_POKEMON, Pokedex, PokedexCounts, RegionsDoc, REGIONS_ARRAY, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonFormsDoc, UserPokedex, UserPokemon } from '../pokedex-data/pokedex-data.types';
+import { EMPTY_POKEDEX_COUNT, EMPTY_POKEMON, Pokedex, PokedexCounts, Region, RegionsDoc, REGIONS_ARRAY, STANDARD_POKEMON_FORMS_ARRAY, StdPokemonFormsDoc, UserPokedex, UserPokemon } from '../pokedex-data/pokedex-data.types';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +32,12 @@ export class PokedexGenerateDataService {
     let output: PokedexCounts = JSON.parse(JSON.stringify(EMPTY_POKEDEX_COUNT));
 
     for (let id in pokedex) {
-      const forms = pokedex[id].stdForms;
+      const pokemon = pokedex[id];
+      const region: Region = REGIONS_ARRAY[parseInt(pokemon.generation_number,10) - 1];
+      const forms = pokemon.stdForms;
       for (let stat in output.all) {
         output.all[stat] += forms[stat] ? 1 : 0;
+        output[region][stat] += forms[stat] ? 1 : 0;
       }
     }
   
