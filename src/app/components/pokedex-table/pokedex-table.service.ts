@@ -3,7 +3,7 @@ import { PokedexDataService } from 'src/app/services/pokedex-data/pokedex-data.s
 import { Pokemon, UserPokedex } from 'src/app/services/pokedex-data/pokedex-data.types';
 import { FILTERS, Filters } from './pokedex-table.types';
 
-import { combineLatest, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

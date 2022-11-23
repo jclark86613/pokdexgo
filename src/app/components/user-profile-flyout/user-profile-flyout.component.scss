@@ -42,6 +42,9 @@
     &.lucky {
         background-color: rgba(colors.$peach,0.05);
     }
+    &.shinythreestar {
+        background-color: rgba(colors.$gold,0.05);
+    }
     .expandable-content {
         height: 0;
         overflow: hidden;

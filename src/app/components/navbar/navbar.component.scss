@@ -50,6 +50,10 @@
     background-color: colors.$peach;
     opacity: 0.3;
 }
+::ng-deep .shinythreestar .mat-progress-bar-buffer {
+    background-color: colors.$gold;
+    opacity: 0.3;
+}
 
 mat-divider {
     margin: 0.5rem 0;

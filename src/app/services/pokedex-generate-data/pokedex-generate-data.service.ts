@@ -115,7 +115,8 @@ export class PokedexGenerateDataService {
         perfect: released,
         threestar: released,
         shadow: rocket,
-        purified: rocket
+        purified: rocket,
+        shinythreestar: shiny
       };
 
     }

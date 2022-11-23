@@ -1,10 +1,10 @@
-<button class="button" mat-raised-button [ngClass]="{trans: value}" color="{{name}}" [disabled]="disabled"  (click)="toggle()" aria-label="standard">
+<button class="button" mat-raised-button [ngClass]="{trans: !value}" color="{{name}}" [disabled]="disabled"  (click)="toggle()" aria-label="standard">
     <ng-container *ngIf="disabled else active">
-        UNAVAILABLE
+        -
     </ng-container>
 </button>
 
 <ng-template #active>
-    {{name | uppercase}}
-    <mat-icon [color]="value ? 'green' : 'red'">{{value ? 'check' : 'close'}}</mat-icon>
+    <!-- {{name | uppercase}} -->
+    <mat-icon class="icon" [color]="value ? 'green' : 'red'">{{value ? 'check' : 'close'}}</mat-icon>
 </ng-template>
